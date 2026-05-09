@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Oscar Eduardo Román Veloz — Business Intelligence & Data Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:          #0a0f1a;
+  --surface:     #111827;
+  --surface2:    #1a2233;
+  --border:      #1e2d45;
+  --accent:      #2563eb;
+  --accent2:     #38bdf8;
+  --accent3:     #0ea5e9;
+  --teal:        #2dd4bf;
+  --text:        #e8edf5;
+  --text-muted:  #9db4c8;   /* slightly brighter than original for readability */
+  --text-dim:    #5e7a94;
+  --white:       #ffffff;
+  --tag-bg:      #0f1f35;
+  --tag-border:  #1e3a5f;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.5;
+}
+
+/* ── GRID LINES BG ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(37,99,235,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,0.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ── GLOW BLOBS ── */
+.blob {
+  position: fixed; border-radius: 50%;
+  filter: blur(130px); opacity: 0.1;
+  pointer-events: none; z-index: 0;
+}
+.blob-1 { width: 640px; height: 640px; background: var(--accent); top: -200px; right: -120px; }
+.blob-2 { width: 440px; height: 440px; background: var(--accent2); bottom: 5%; left: -160px; animation: float 9s ease-in-out infinite; }
+.blob-3 { width: 300px; height: 300px; background: var(--teal); top: 40%; right: 5%; animation: float 12s ease-in-out infinite reverse; opacity: 0.07; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-28px); }
+}
+
+/* ── SCROLL PROGRESS ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 200; width: 0; transition: width 0.08s linear;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(10,15,26,0.88);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 0.95rem;
+  letter-spacing: 0.12em; color: var(--accent2); text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  color: var(--text-dim); text-decoration: none;
+  font-size: 0.78rem; letter-spacing: 0.12em;
+  text-transform: uppercase; font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent2); }
+
+/* ── WRAPPER ── */
+.wrapper {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto; padding: 0 36px;
+}
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center; padding-top: 80px;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 80px; align-items: center; width: 100%;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--tag-bg); border: 1px solid var(--tag-border);
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent2);
+  margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.6s ease forwards 0.1s;
+}
+.hero-tag::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent2);
+  box-shadow: 0 0 8px var(--accent2);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 5.5vw, 4.8rem);
+  line-height: 1.02; letter-spacing: -0.025em;
+  color: var(--white); margin-bottom: 8px;
+  opacity: 0; animation: fadeUp 0.6s ease forwards 0.2s;
+}
+h1 span {
+  background: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem; font-weight: 600;
+  color: var(--accent2); letter-spacing: 0.04em;
+  margin-bottom: 24px;
+  opacity: 0; animation: fadeUp 0.6s ease forwards 0.3s;
+}
+.hero-bio {
+  font-size: 0.97rem; color: var(--text-muted);
+  max-width: 510px; line-height: 1.85;
+  margin-bottom: 36px;
+  opacity: 0; animation: fadeUp 0.6s ease forwards 0.4s;
+}
+
+/* ── HERO STATS ── */
+.hero-stats {
+  display: flex; gap: 36px; margin-bottom: 36px;
+  opacity: 0; animation: fadeUp 0.6s ease forwards 0.45s;
+}
+.stat-item { text-align: left; }
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.2rem; font-weight: 800;
+  color: var(--accent2); line-height: 1;
+}
+.stat-label {
+  font-size: 0.72rem; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px;
+}
+
+.hero-cta {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.6s ease forwards 0.55s;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: var(--white);
+  text-decoration: none; padding: 12px 28px;
+  border-radius: 8px; font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.04em; transition: all 0.2s;
+}
+.btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37,99,235,0.4); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--accent2); text-decoration: none;
+  padding: 12px 28px; border-radius: 8px;
+  font-size: 0.85rem; font-weight: 500;
+  border: 1px solid var(--border); transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: var(--accent2); background: rgba(56,189,248,0.06); }
+
+/* ── HERO PHOTO ── */
+.hero-photo-wrap {
+  opacity: 0; animation: fadeLeft 0.7s ease forwards 0.3s;
+}
+.photo-frame {
+  position: relative; width: 290px; height: 340px; margin: 0 auto;
+}
+.photo-frame::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 24px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2), var(--teal));
+  background-size: 200% 200%;
+  animation: gradShift 5s ease infinite; z-index: 0;
+}
+@keyframes gradShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.photo-frame img {
+  position: relative; z-index: 1;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  border-radius: 22px; display: block;
+}
+.photo-badge {
+  position: absolute; bottom: -16px; right: -16px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 18px; z-index: 2;
+  backdrop-filter: blur(10px);
+}
+.photo-badge .badge-num {
+  font-family: 'Syne', sans-serif; font-size: 1.6rem;
+  font-weight: 800; color: var(--accent2);
+  display: block; line-height: 1;
+}
+.photo-badge .badge-label {
+  font-size: 0.62rem; color: var(--text-muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.hero-info-chips { display: flex; flex-direction: column; gap: 8px; margin-top: 36px; }
+.info-chip {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.8rem; color: var(--text-muted);
+}
+.info-chip .icon {
+  width: 28px; height: 28px; background: var(--tag-bg);
+  border: 1px solid var(--tag-border); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; flex-shrink: 0;
+}
+
+/* ── SECTIONS GENERIC ── */
+section { padding: 100px 0; position: relative; z-index: 1; }
+
+.section-label {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+}
+.section-label .line {
+  width: 40px; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 2px;
+}
+.section-label span {
+  font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2);
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 800; color: var(--white);
+  letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.section-sub {
+  font-size: 0.92rem; color: var(--text-muted);
+  max-width: 520px; margin-bottom: 48px; line-height: 1.75;
+}
+
+/* ── SKILLS ── */
+#skills { border-top: 1px solid var(--border); }
+
+.skills-core-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2px; margin-top: 48px;
+  border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+}
+.skill-card {
+  background: var(--surface); padding: 28px 24px;
+  transition: background 0.2s; position: relative; overflow: hidden;
+}
+.skill-card::after {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 0;
+  background: linear-gradient(var(--accent2), var(--accent));
+  transition: height 0.3s;
+}
+.skill-card:hover { background: var(--surface2); }
+.skill-card:hover::after { height: 100%; }
+.skill-icon { font-size: 1.5rem; margin-bottom: 14px; display: block; }
+.skill-name {
+  font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700;
+  color: var(--white); margin-bottom: 8px;
+}
+.skill-desc { font-size: 0.77rem; color: var(--text-muted); line-height: 1.65; }
+
+/* ── SKILL BARS ── */
+.skills-bars-wrap {
+  margin-top: 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+}
+.bars-group-title {
+  font-family: 'Syne', sans-serif; font-size: 0.7rem;
+  font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 10px;
+}
+.bars-group-title::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--border);
+}
+.skill-bar-item { margin-bottom: 18px; }
+.skill-bar-top {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 7px;
+}
+.skill-bar-name { font-size: 0.86rem; color: var(--text); font-weight: 500; }
+.skill-bar-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: var(--text-dim);
+}
+.skill-track {
+  height: 4px; background: rgba(255,255,255,0.06);
+  border-radius: 2px; overflow: hidden;
+}
+.skill-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform-origin: left;
+  animation: growBar 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+}
+@keyframes growBar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ── TOOLS ROW ── */
+.tools-row {
+  margin-top: 40px;
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+.tools-label {
+  font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-dim); margin-right: 8px; flex-shrink: 0;
+}
+.tool-tag {
+  background: var(--tag-bg); border: 1px solid var(--tag-border);
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 0.78rem; color: var(--text-muted);
+  transition: all 0.2s;
+}
+.tool-tag:hover { border-color: var(--accent2); color: var(--accent2); }
+
+/* ── SOFT SKILLS ── */
+.soft-row {
+  margin-top: 40px;
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.soft-chip {
+  font-size: 0.78rem; color: var(--text-muted);
+  background: var(--tag-bg); border: 1px solid var(--tag-border);
+  padding: 6px 16px; border-radius: 100px; transition: all 0.2s;
+}
+.soft-chip:hover { border-color: var(--teal); color: var(--teal); }
+
+/* ── EXPERIENCE ── */
+#experience { border-top: 1px solid var(--border); }
+
+.exp-timeline { position: relative; padding-left: 32px; margin-top: 48px; }
+.exp-timeline::before {
+  content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px;
+  background: linear-gradient(var(--border), var(--accent2), var(--border));
+}
+.exp-item {
+  position: relative; margin-bottom: 56px;
+  opacity: 0; transform: translateX(-20px);
+  transition: all 0.55s ease;
+}
+.exp-item.visible { opacity: 1; transform: translateX(0); }
+.exp-dot {
+  position: absolute; left: -38px; top: 6px;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: var(--accent2); border: 2px solid var(--bg);
+  box-shadow: 0 0 0 3px var(--accent2), 0 0 20px rgba(56,189,248,0.4);
+}
+.exp-dot.dim { background: var(--text-dim); box-shadow: 0 0 0 3px var(--text-dim); }
+
+.exp-company {
+  font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent2); margin-bottom: 6px;
+}
+.exp-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 4px;
+}
+.exp-role {
+  font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--white);
+}
+.exp-date {
+  font-size: 0.73rem; color: var(--text-dim);
+  background: var(--tag-bg); border: 1px solid var(--tag-border);
+  padding: 4px 12px; border-radius: 100px; white-space: nowrap;
+  height: fit-content;
+}
+.exp-location { font-size: 0.77rem; color: var(--text-dim); margin-bottom: 14px; }
+.exp-desc {
+  font-size: 0.87rem; color: var(--text-muted);
+  line-height: 1.82; margin-bottom: 16px;
+}
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.exp-bullets li {
+  font-size: 0.85rem; color: var(--text-muted);
+  padding-left: 18px; position: relative; line-height: 1.72;
+}
+.exp-bullets li::before {
+  content: '▸'; position: absolute; left: 0;
+  color: var(--accent2); font-size: 0.7rem; top: 4px;
+}
+.exp-sub { margin-top: 24px; padding-left: 20px; border-left: 1px solid var(--border); }
+.exp-sub-item { margin-bottom: 20px; }
+.exp-sub-role { font-weight: 500; color: var(--text); font-size: 0.9rem; margin-bottom: 3px; }
+.exp-sub-date { font-size: 0.74rem; color: var(--text-dim); }
+
+/* ── EDUCATION ── */
+#education { border-top: 1px solid var(--border); }
+
+.edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 48px; }
+.edu-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.2s, transform 0.25s;
+}
+.edu-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.edu-card.current::before { background: linear-gradient(90deg, var(--accent2), var(--teal)); }
+.edu-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+
+.edu-icon-wrap {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 12px; display: flex; align-items: center;
+  justify-content: center; font-size: 1.6rem; margin-bottom: 20px;
+}
+.edu-school {
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent2); font-weight: 700; margin-bottom: 6px;
+}
+.edu-degree {
+  font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800;
+  color: var(--white); margin-bottom: 10px;
+}
+.edu-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.edu-tag {
+  font-size: 0.72rem; color: var(--text-muted);
+  background: var(--tag-bg); border: 1px solid var(--tag-border);
+  padding: 3px 12px; border-radius: 100px;
+}
+.edu-tag.active { color: var(--teal); border-color: rgba(45,212,191,0.3); background: rgba(45,212,191,0.06); }
+
+/* ── CERTIFICATIONS ── */
+#certifications { border-top: 1px solid var(--border); }
+
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px; margin-top: 16px;
+}
+.cert-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px 28px;
+  display: flex; align-items: flex-start; gap: 18px;
+  transition: all 0.2s; cursor: default;
+}
+.cert-card:hover {
+  border-color: var(--accent2); background: var(--surface2);
+  transform: translateY(-3px);
+}
+.cert-num {
+  font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800;
+  color: var(--border); min-width: 36px; line-height: 1;
+  transition: color 0.2s;
+}
+.cert-card:hover .cert-num { color: var(--accent2); }
+.cert-info {}
+.cert-name {
+  font-size: 0.88rem; font-weight: 500; color: var(--text); line-height: 1.5;
+}
+.cert-meta { font-size: 0.74rem; color: var(--text-dim); margin-top: 3px; }
+
+/* ── CONTACT ── */
+#contact { border-top: 1px solid var(--border); }
+
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; margin-top: 48px;
+  border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+}
+.contact-item {
+  background: var(--surface); padding: 28px 32px;
+  display: flex; align-items: center; gap: 20px;
+  text-decoration: none; transition: background 0.2s;
+}
+.contact-item:hover { background: var(--surface2); }
+.contact-icon-wrap {
+  width: 44px; height: 44px; background: var(--tag-bg);
+  border: 1px solid var(--tag-border); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0; transition: all 0.2s;
+}
+.contact-item:hover .contact-icon-wrap { background: var(--accent); border-color: var(--accent); }
+.contact-label {
+  font-size: 0.66rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-dim); margin-bottom: 4px;
+}
+.contact-value { font-size: 0.88rem; font-weight: 500; color: var(--text); }
+
+.contact-location {
+  margin-top: 2px;
+  text-align: center; padding: 32px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+}
+.contact-location .city {
+  font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--white);
+}
+.contact-location .country { font-size: 0.88rem; color: var(--text-muted); margin-top: 4px; }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  font-size: 0.73rem; color: var(--text-dim); letter-spacing: 0.06em;
+}
+footer span { color: var(--accent2); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-photo-wrap { order: -1; }
+  .photo-frame { width: 230px; height: 270px; }
+  .skills-bars-wrap { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .wrapper { padding: 0 20px; }
+  section { padding: 72px 0; }
+  .hero-stats { gap: 24px; }
+  footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ── NAV ─────────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo">OERV</div>
+  <div class="nav-links">
+    <a href="#skills">Habilidades</a>
+    <a href="#experience">Experiencia</a>
+    <a href="#education">Educación</a>
+    <a href="#certifications">Cursos</a>
+    <a href="#contact">Contacto</a>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<section id="hero">
+  <div class="wrapper">
+    <div class="hero-inner">
+
+      <div class="hero-content">
+        <div class="hero-tag">Disponible para nuevas oportunidades</div>
+        <h1>Oscar<br><span>Román</span><br>Veloz</h1>
+        <div class="hero-title">Business Intelligence & Data Analytics Specialist</div>
+        <p class="hero-bio">
+          Especialista en transformar datos operativos en decisiones estratégicas de alto impacto. Más de 4 años liderando proyectos de analítica, BI y automatización ETL en el sector financiero dominicano.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">4+</div>
+            <div class="stat-label">Años de exp.</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">8+</div>
+            <div class="stat-label">Herramientas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Empresas</div>
+          </div>
+        </div>
+
+        <div class="hero-cta">
+          <a href="mailto:rvoscareduardo@gmail.com" class="btn-primary">✉ Contactar</a>
+          <a href="https://www.linkedin.com/in/oscar-eduardo-román-veloz-a894a5210/" target="_blank" class="btn-ghost">↗ LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <div class="photo-frame">
+          <img src="Imagen_Oscar_Eduardo_Román_Veloz__1_.png" alt="Oscar Eduardo Román Veloz"/>
+        </div>
+        <div class="photo-badge">
+          <span class="badge-num">4+</span>
+          <span class="badge-label">Años de<br>Experiencia</span>
+        </div>
+        <div class="hero-info-chips">
+          <div class="info-chip"><div class="icon">📍</div>Santo Domingo, Rep. Dominicana</div>
+          <div class="info-chip"><div class="icon">🏦</div>Banco Santa Cruz RD</div>
+          <div class="info-chip"><div class="icon">🎓</div>Ing. de Sistemas — INTEC</div>
+          <div class="info-chip"><div class="icon">📚</div>Máster en Business Data Science — IEP</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ────────────────────────────────────────── -->
+<section id="skills">
+  <div class="wrapper">
+    <div class="section-label"><div class="line"></div><span>Aptitudes</span></div>
+    <div class="section-title">Stack & Especialidades</div>
+    <p class="section-sub">
+      Dominio técnico en herramientas de Business Intelligence, bases de datos y programación analítica, orientado a la automatización y mejora continua de procesos en entornos financieros.
+    </p>
+
+    <!-- Core competency cards -->
+    <div class="skills-core-grid">
+      <div class="skill-card">
+        <span class="skill-icon">📊</span>
+        <div class="skill-name">Data Analysis</div>
+        <div class="skill-desc">Análisis operativo y estadístico de datos para identificar patrones, tendencias y oportunidades de mejora en la gestión bancaria.</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">⚡</span>
+        <div class="skill-name">Process Automation</div>
+        <div class="skill-desc">Automatización de flujos ETL y procesos repetitivos con Python, Power Query y SQL para maximizar la eficiencia operativa.</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">📈</span>
+        <div class="skill-name">Business Intelligence</div>
+        <div class="skill-desc">Diseño e implementación de dashboards y modelos analíticos en Power BI para monitoreo de KPIs operativos y toma de decisiones.</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🗄️</span>
+        <div class="skill-name">SQL & ETL</div>
+        <div class="skill-desc">Construcción de estructuras de datos, consultas avanzadas y pipelines de transformación para análisis a escala.</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🐍</span>
+        <div class="skill-name">Python & ML</div>
+        <div class="skill-desc">Desarrollo de soluciones analíticas avanzadas y modelos de Machine Learning aplicados a operaciones bancarias.</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🎯</span>
+        <div class="skill-name">Continuous Improvement</div>
+        <div class="skill-desc">Liderazgo de iniciativas de mejora continua y optimización de procesos operativos en entornos financieros de alta demanda.</div>
+      </div>
+    </div>
+
+    <!-- Skill bars -->
+    <div class="skills-bars-wrap">
+      <div>
+        <div class="bars-group-title">BI & Visualización</div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Power BI</span><span class="skill-bar-pct">95%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Excel / Power Query</span><span class="skill-bar-pct">95%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">SAS Guide</span><span class="skill-bar-pct">82%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Google Analytics</span><span class="skill-bar-pct">80%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Aspect (Contact Center)</span><span class="skill-bar-pct">90%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="bars-group-title">Bases de Datos & Código</div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">SQL Server</span><span class="skill-bar-pct">88%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">MySQL</span><span class="skill-bar-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Python (Anaconda)</span><span class="skill-bar-pct">82%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">ETL & Automatización</span><span class="skill-bar-pct">88%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span class="skill-bar-name">Machine Learning</span><span class="skill-bar-pct">70%</span></div>
+          <div class="skill-track"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tool tags -->
+    <div class="tools-row">
+      <span class="tools-label">Herramientas</span>
+      <span class="tool-tag">Power BI</span>
+      <span class="tool-tag">SQL Server</span>
+      <span class="tool-tag">Python</span>
+      <span class="tool-tag">Excel Power Query</span>
+      <span class="tool-tag">SAS Guide</span>
+      <span class="tool-tag">MySQL</span>
+      <span class="tool-tag">ETL</span>
+      <span class="tool-tag">Machine Learning</span>
+      <span class="tool-tag">SharePoint</span>
+      <span class="tool-tag">Google Analytics</span>
+      <span class="tool-tag">Aspect</span>
+      <span class="tool-tag">SAP</span>
+    </div>
+
+    <!-- Soft skills -->
+    <div class="tools-row" style="margin-top:16px;">
+      <span class="tools-label">Aptitudes</span>
+      <span class="soft-chip">🧠 Pensamiento Analítico</span>
+      <span class="soft-chip">📚 Autodidacta</span>
+      <span class="soft-chip">💡 Creatividad</span>
+      <span class="soft-chip">🤝 Trabajo en equipo</span>
+      <span class="soft-chip">🗣️ Comunicación efectiva</span>
+      <span class="soft-chip">🔄 Adaptabilidad</span>
+      <span class="soft-chip">❤️ Inteligencia emocional</span>
+      <span class="soft-chip">🎯 Orientado a resultados</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ─────────────────────────────────────── -->
+<section id="experience">
+  <div class="wrapper">
+    <div class="section-label"><div class="line"></div><span>Trayectoria</span></div>
+    <div class="section-title">Experiencia Profesional</div>
+    <p class="section-sub">Más de 4 años en el sector financiero dominicano liderando analítica de datos, BI y mejora continua de procesos operativos.</p>
+
+    <div class="exp-timeline">
+
+      <!-- Banco Santa Cruz -->
+      <div class="exp-item">
+        <div class="exp-dot"></div>
+        <div class="exp-company">Banco Santa Cruz RD</div>
+        <div class="exp-header">
+          <div class="exp-role">Especialista Mejoramiento Continuo / BI & Data Analytics</div>
+          <div class="exp-date">Ago 2025 — Presente</div>
+        </div>
+        <div class="exp-location">📍 Distrito Nacional, República Dominicana</div>
+        <p class="exp-desc">Líder del área de analítica de datos y Business Intelligence dentro de Operaciones, desarrollando soluciones que mejoran la eficiencia y trazabilidad de procesos en múltiples unidades del banco.</p>
+        <ul class="exp-bullets">
+          <li>Liderar iniciativas de optimización de toda el área de Operaciones, desarrollando soluciones basadas en análisis de datos y automatización de procesos.</li>
+          <li>Crear reportes, KPIs y herramientas avanzadas (Python, SQL, Power Query, Excel) que reducen tiempos de análisis y mejoran la precisión en la toma de decisiones.</li>
+          <li>Implementar mejoras en flujos ETL, cargas operativas y repositorios en SharePoint, aumentando eficiencia y trazabilidad.</li>
+          <li>Elaborar informes y presentaciones ejecutivas para la alta dirección, apoyando la priorización de proyectos estratégicos.</li>
+          <li>Desarrollo de proyectos analíticos enfocados en Cobros y Contact Center: análisis de productividad, estrategias de contacto y optimización de indicadores operativos.</li>
+        </ul>
+      </div>
+
+      <!-- Banco Popular -->
+      <div class="exp-item">
+        <div class="exp-dot dim"></div>
+        <div class="exp-company">Banco Popular Dominicano</div>
+        <div class="exp-header">
+          <div class="exp-role">Subgerente de Análisis de Datos</div>
+          <div class="exp-date">2 años 10 meses</div>
+        </div>
+        <div class="exp-location">📍 Santo Domingo, República Dominicana</div>
+        <p class="exp-desc">Progresión de rol desde Analista hasta Subgerente dentro del equipo de Sistemas de Información, con enfoque en tarjetas de crédito, morosidad y KPIs de cobranza.</p>
+        <div class="exp-sub">
+          <div class="exp-sub-item">
+            <div class="exp-sub-role">Subgerente Análisis de Datos</div>
+            <div class="exp-sub-date">Ago 2024 — Ago 2025 · 1 año 1 mes</div>
+            <ul class="exp-bullets" style="margin-top:8px;">
+              <li>Liderar proyectos de optimización de cobros, coordinando actividades del personal con base en métricas clave de rendimiento.</li>
+              <li>Realizar análisis avanzados y generar informes estratégicos para tarjetas de crédito y préstamos.</li>
+              <li>Implementar mejoras en los procesos de ETL y evaluación de KPIs, reduciendo tiempos de reporte.</li>
+            </ul>
+          </div>
+          <div class="exp-sub-item">
+            <div class="exp-sub-role">Analista de Datos — Sistemas de Información</div>
+            <div class="exp-sub-date">Nov 2022 — Ago 2024 · 1 año 11 meses</div>
+            <ul class="exp-bullets" style="margin-top:8px;">
+              <li>Desarrollar informes detallados sobre morosidad y desempeño de cartera de tarjetas de crédito.</li>
+              <li>Automatización de reportes y creación de indicadores clave (KPIs) para la gestión de cobros.</li>
+              <li>Coordinar con Finanzas, Riesgo y Cobranza para optimizar visualización y acceso a datos relevantes.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Serviamed -->
+      <div class="exp-item">
+        <div class="exp-dot dim"></div>
+        <div class="exp-company">Serviamed Dominicana</div>
+        <div class="exp-header">
+          <div class="exp-role">Pasante Asistente SAP</div>
+          <div class="exp-date">Mar — May 2022 · 3 meses</div>
+        </div>
+        <div class="exp-location">📍 Distrito Nacional, República Dominicana</div>
+        <ul class="exp-bullets">
+          <li>Asistencia en operaciones de SAP y soporte al departamento de contabilidad.</li>
+        </ul>
+      </div>
+
+      <!-- Bohococo -->
+      <div class="exp-item">
+        <div class="exp-dot dim"></div>
+        <div class="exp-company">Bohococo</div>
+        <div class="exp-header">
+          <div class="exp-role">Asistente de Gestión de Base de Datos</div>
+          <div class="exp-date">Ene 2021 — Ene 2022 · 1 año</div>
+        </div>
+        <div class="exp-location">📍 Santo Domingo, República Dominicana</div>
+        <ul class="exp-bullets">
+          <li>Realización de reportes informativos periódicos para la organización.</li>
+          <li>Mantenimiento de la base de datos organizacional y categorización de productos.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── EDUCATION ──────────────────────────────────────── -->
+<section id="education">
+  <div class="wrapper">
+    <div class="section-label"><div class="line"></div><span>Formación</span></div>
+    <div class="section-title">Educación</div>
+    <p class="section-sub">Sólida base en Ingeniería de Sistemas complementada con una maestría internacional en ciencia de datos y analítica visual actualmente en curso.</p>
+
+    <div class="edu-grid">
+      <div class="edu-card current">
+        <div class="edu-icon-wrap">🎓</div>
+        <div class="edu-school">Instituto Europeo de Postgrado — IEP</div>
+        <div class="edu-degree">Máster en Business Data Science & Visual Analytics</div>
+        <div class="edu-meta">
+          <span class="edu-tag active">En curso</span>
+          <span class="edu-tag">Mar 2025 — Presente</span>
+          <span class="edu-tag">Online</span>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-icon-wrap">💻</div>
+        <div class="edu-school">INTEC — Instituto Tecnológico de Santo Domingo</div>
+        <div class="edu-degree">Ingeniería de Sistemas</div>
+        <div class="edu-meta">
+          <span class="edu-tag">Grado Universitario</span>
+          <span class="edu-tag">2018 — 2022</span>
+          <span class="edu-tag">Santo Domingo, RD</span>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-icon-wrap">🌐</div>
+        <div class="edu-school">Instituto Cultural Dominico Americano</div>
+        <div class="edu-degree">Inglés Avanzado</div>
+        <div class="edu-meta">
+          <span class="edu-tag">Completado</span>
+          <span class="edu-tag">2017 — 2018</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CERTIFICATIONS ─────────────────────────────────── -->
+<section id="certifications">
+  <div class="wrapper">
+    <div class="section-label"><div class="line"></div><span>Formación Continua</span></div>
+    <div class="section-title">Cursos & Certificaciones</div>
+    <p class="section-sub">Compromiso constante con el aprendizaje técnico en áreas de datos, BI y programación.</p>
+
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-num">01</div>
+        <div class="cert-info">
+          <div class="cert-name">Analítica Avanzada de Datos y Machine Learning con Python</div>
+          <div class="cert-meta">PUCMM (TEP) · Jun 2024</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-num">02</div>
+        <div class="cert-info">
+          <div class="cert-name">Inteligencia de Negocios con Excel y Power BI</div>
+          <div class="cert-meta">PUCMM (TEP) · Feb 2024</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-num">03</div>
+        <div class="cert-info">
+          <div class="cert-name">SQL — Curso Completo de Bases de Datos · De 0 a Avanzado</div>
+          <div class="cert-meta">Udemy · Feb 2022</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-num">04</div>
+        <div class="cert-info">
+          <div class="cert-name">Curso Excel y Power BI — Análisis y Visualización de Datos</div>
+          <div class="cert-meta">Udemy · Nov 2021</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-num">05</div>
+        <div class="cert-info">
+          <div class="cert-name">Power BI Esencial (2018)</div>
+          <div class="cert-meta">Certificación oficial Power BI</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-num">06</div>
+        <div class="cert-info">
+          <div class="cert-name">Administrador de Bases de Datos</div>
+          <div class="cert-meta">Certificación base de datos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────── -->
+<section id="contact">
+  <div class="wrapper">
+    <div class="section-label"><div class="line"></div><span>Contacto</span></div>
+    <div class="section-title">Hablemos</div>
+    <p class="section-sub">Abierto a oportunidades que representen un desafío analítico. Disponible en modalidad presencial e híbrida.</p>
+
+    <div class="contact-grid">
+      <a href="mailto:rvoscareduardo@gmail.com" class="contact-item">
+        <div class="contact-icon-wrap">✉</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">rvoscareduardo@gmail.com</div>
+        </div>
+      </a>
+      <a href="tel:+18296979914" class="contact-item">
+        <div class="contact-icon-wrap">📞</div>
+        <div>
+          <div class="contact-label">Teléfono</div>
+          <div class="contact-value">(829) 697-9914</div>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/oscar-eduardo-román-veloz-a894a5210/" target="_blank" class="contact-item">
+        <div class="contact-icon-wrap">💼</div>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">oscar-eduardo-román-veloz</div>
+        </div>
+      </a>
+      <a href="https://rvoscareduardo.wixsite.com/home" target="_blank" class="contact-item">
+        <div class="contact-icon-wrap">🌐</div>
+        <div>
+          <div class="contact-label">Sitio Web Personal</div>
+          <div class="contact-value">rvoscareduardo.wixsite.com</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="contact-location" style="margin-top:2px;">
+      <div style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;">Ubicación</div>
+      <div class="city">Santo Domingo</div>
+      <div class="country">República Dominicana · Disponible presencial e híbrido</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <span>Oscar Eduardo Román Veloz</span>
+  <span style="color:var(--text-dim);">Especialista BI & Analítica de Datos · Santo Domingo, RD · 2025</span>
+  <span style="color:var(--text-dim);">rvoscareduardo@gmail.com</span>
+</footer>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = (window.scrollY / total) * 100;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+
+  // Intersection observer — experience items slide in
+  const expItems = document.querySelectorAll('.exp-item');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  expItems.forEach(i => io.observe(i));
+
+  // Intersection observer — other cards fade in
+  const cards = document.querySelectorAll('.skill-card, .edu-card, .cert-card, .contact-item');
+  const io2 = new IntersectionObserver((entries) => {
+    entries.forEach((e, idx) => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }, idx * 60);
+        io2.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  cards.forEach(c => {
+    c.style.opacity = '0';
+    c.style.transform = 'translateY(16px)';
+    c.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    io2.observe(c);
+  });
+</script>
+</body>
+</html>
