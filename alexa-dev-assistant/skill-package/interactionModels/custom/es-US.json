@@ -1,0 +1,830 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "asistente de código",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "slots": [],
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NextIntent",
+          "slots": [],
+          "samples": [
+            "listo",
+            "ya terminé",
+            "continúa",
+            "sigue",
+            "siguiente pregunta"
+          ]
+        },
+        {
+          "name": "HttpStatusIntent",
+          "slots": [
+            {
+              "name": "code",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "qué significa el código {code}",
+            "qué significa el error {code}",
+            "qué es el código {code}",
+            "qué es el error {code}",
+            "qué significa un {code}",
+            "explícame el código {code}",
+            "código http {code}",
+            "el servidor me regresa {code}",
+            "me sale un error {code}"
+          ]
+        },
+        {
+          "name": "GitCommandIntent",
+          "slots": [
+            {
+              "name": "task",
+              "type": "GIT_TASK"
+            }
+          ],
+          "samples": [
+            "cómo {task} en git",
+            "cómo {task}",
+            "cómo puedo {task}",
+            "cómo se hace para {task}",
+            "comando de git para {task}",
+            "comando para {task}",
+            "en git cómo {task}",
+            "qué comando uso para {task}",
+            "quiero {task}"
+          ]
+        },
+        {
+          "name": "ConceptIntent",
+          "slots": [
+            {
+              "name": "concept",
+              "type": "DEV_CONCEPT"
+            }
+          ],
+          "samples": [
+            "qué es {concept}",
+            "qué son {concept}",
+            "qué significa {concept}",
+            "explícame {concept}",
+            "explica {concept}",
+            "háblame de {concept}",
+            "define {concept}"
+          ]
+        },
+        {
+          "name": "TipIntent",
+          "slots": [],
+          "samples": [
+            "dame un consejo",
+            "dame un tip",
+            "dime un consejo",
+            "un consejo de programación",
+            "dame un tip de programación",
+            "algún consejo"
+          ]
+        },
+        {
+          "name": "BaseConversionIntent",
+          "slots": [
+            {
+              "name": "number",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "base",
+              "type": "NUMBER_BASE"
+            }
+          ],
+          "samples": [
+            "convierte {number} a {base}",
+            "convierte el número {number} a {base}",
+            "pasa {number} a {base}",
+            "cuánto es {number} en {base}",
+            "{number} en {base}"
+          ]
+        },
+        {
+          "name": "GenerateIntent",
+          "slots": [
+            {
+              "name": "thing",
+              "type": "GENERATABLE"
+            }
+          ],
+          "samples": [
+            "genera un {thing}",
+            "genera una {thing}",
+            "generar {thing}",
+            "dame un {thing}",
+            "dame una {thing}",
+            "necesito un {thing}",
+            "necesito una {thing}",
+            "crea un {thing}",
+            "crea una {thing}"
+          ]
+        },
+        {
+          "name": "PomodoroIntent",
+          "slots": [
+            {
+              "name": "minutes",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "inicia un pomodoro",
+            "empieza un pomodoro",
+            "pomodoro",
+            "modo enfoque",
+            "inicia un pomodoro de {minutes} minutos",
+            "pon un pomodoro de {minutes} minutos",
+            "modo enfoque de {minutes} minutos",
+            "quiero concentrarme {minutes} minutos"
+          ]
+        },
+        {
+          "name": "RubberDuckIntent",
+          "slots": [],
+          "samples": [
+            "modo patito",
+            "activa el modo patito",
+            "patito de hule",
+            "quiero depurar con el patito",
+            "ayúdame a depurar",
+            "tengo un bug",
+            "no encuentro el error"
+          ]
+        },
+        {
+          "name": "DuckFoundIntent",
+          "slots": [],
+          "samples": [
+            "lo encontré",
+            "ya lo encontré",
+            "ya encontré el error",
+            "encontré el bug",
+            "ya lo resolví",
+            "ya quedó"
+          ]
+        },
+        {
+          "name": "RepoStatusIntent",
+          "slots": [],
+          "samples": [
+            "cómo va mi repositorio",
+            "cómo va mi repo",
+            "estado de mi repositorio",
+            "estado del repo",
+            "resumen de mi repositorio",
+            "cuántos issues tengo",
+            "cuántos pull requests tengo abiertos",
+            "qué hay de nuevo en mi repositorio"
+          ]
+        },
+        {
+          "name": "AskClaudeIntent",
+          "slots": [
+            {
+              "name": "question",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "pregunta {question}",
+            "pregúntale {question}",
+            "pregunta a claude {question}",
+            "dile a claude {question}",
+            "tengo una pregunta {question}",
+            "tengo una duda {question}",
+            "consulta {question}"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "GIT_TASK",
+          "values": [
+            {
+              "id": "UNDO_LAST_COMMIT",
+              "name": {
+                "value": "deshacer el último commit",
+                "synonyms": [
+                  "deshago el último commit",
+                  "quitar el último commit",
+                  "deshacer un commit",
+                  "borrar el último commit"
+                ]
+              }
+            },
+            {
+              "id": "CREATE_BRANCH",
+              "name": {
+                "value": "crear una rama",
+                "synonyms": [
+                  "creo una rama",
+                  "hacer una rama nueva",
+                  "crear un branch",
+                  "abrir una rama"
+                ]
+              }
+            },
+            {
+              "id": "SWITCH_BRANCH",
+              "name": {
+                "value": "cambiar de rama",
+                "synonyms": [
+                  "cambio de rama",
+                  "moverme a otra rama",
+                  "cambiar de branch"
+                ]
+              }
+            },
+            {
+              "id": "DELETE_BRANCH",
+              "name": {
+                "value": "borrar una rama",
+                "synonyms": [
+                  "eliminar una rama",
+                  "borro una rama",
+                  "eliminar un branch"
+                ]
+              }
+            },
+            {
+              "id": "RENAME_BRANCH",
+              "name": {
+                "value": "renombrar una rama",
+                "synonyms": [
+                  "cambiar el nombre de una rama",
+                  "renombro la rama"
+                ]
+              }
+            },
+            {
+              "id": "STASH",
+              "name": {
+                "value": "guardar cambios temporalmente",
+                "synonyms": [
+                  "guardo mis cambios sin hacer commit",
+                  "hacer un stash",
+                  "apartar mis cambios"
+                ]
+              }
+            },
+            {
+              "id": "DISCARD_CHANGES",
+              "name": {
+                "value": "descartar cambios",
+                "synonyms": [
+                  "descarto mis cambios",
+                  "deshacer cambios de un archivo",
+                  "volver un archivo como estaba"
+                ]
+              }
+            },
+            {
+              "id": "UNSTAGE",
+              "name": {
+                "value": "sacar un archivo del stage",
+                "synonyms": [
+                  "quitar un archivo del add",
+                  "deshacer un git add",
+                  "quitar archivos preparados"
+                ]
+              }
+            },
+            {
+              "id": "AMEND",
+              "name": {
+                "value": "corregir el último commit",
+                "synonyms": [
+                  "cambiar el mensaje del commit",
+                  "agregar algo al último commit",
+                  "editar el último commit"
+                ]
+              }
+            },
+            {
+              "id": "VIEW_HISTORY",
+              "name": {
+                "value": "ver el historial",
+                "synonyms": [
+                  "veo el historial",
+                  "ver los commits",
+                  "ver el log"
+                ]
+              }
+            },
+            {
+              "id": "VIEW_CHANGES",
+              "name": {
+                "value": "ver mis cambios",
+                "synonyms": [
+                  "ver las diferencias",
+                  "hacer un diff",
+                  "ver qué cambié"
+                ]
+              }
+            },
+            {
+              "id": "UPDATE_BRANCH",
+              "name": {
+                "value": "actualizar mi rama",
+                "synonyms": [
+                  "actualizo mi rama con main",
+                  "traer los cambios de main",
+                  "sincronizar con main"
+                ]
+              }
+            },
+            {
+              "id": "RESOLVE_CONFLICTS",
+              "name": {
+                "value": "resolver conflictos",
+                "synonyms": [
+                  "resuelvo un conflicto",
+                  "arreglar un conflicto de merge",
+                  "resolver un merge"
+                ]
+              }
+            },
+            {
+              "id": "CHERRY_PICK",
+              "name": {
+                "value": "traer un commit de otra rama",
+                "synonyms": [
+                  "hacer cherry pick",
+                  "copiar un commit",
+                  "aplicar un commit específico"
+                ]
+              }
+            },
+            {
+              "id": "SQUASH",
+              "name": {
+                "value": "juntar commits",
+                "synonyms": [
+                  "unir varios commits",
+                  "hacer squash",
+                  "aplastar commits"
+                ]
+              }
+            },
+            {
+              "id": "CREATE_TAG",
+              "name": {
+                "value": "crear un tag",
+                "synonyms": [
+                  "crear una etiqueta",
+                  "marcar una versión",
+                  "hacer un release"
+                ]
+              }
+            },
+            {
+              "id": "RECOVER_LOST",
+              "name": {
+                "value": "recuperar un commit perdido",
+                "synonyms": [
+                  "recuperar una rama borrada",
+                  "recupero algo que borré",
+                  "deshacer un reset"
+                ]
+              }
+            },
+            {
+              "id": "FIND_BUG_COMMIT",
+              "name": {
+                "value": "encontrar qué commit rompió algo",
+                "synonyms": [
+                  "buscar el commit con el bug",
+                  "hacer un bisect",
+                  "encontrar dónde se rompió"
+                ]
+              }
+            },
+            {
+              "id": "CHANGE_REMOTE",
+              "name": {
+                "value": "cambiar la url del remoto",
+                "synonyms": [
+                  "cambiar el origin",
+                  "cambiar el repositorio remoto"
+                ]
+              }
+            },
+            {
+              "id": "IGNORE_FILE",
+              "name": {
+                "value": "ignorar un archivo",
+                "synonyms": [
+                  "dejar de rastrear un archivo",
+                  "usar el gitignore"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DEV_CONCEPT",
+          "values": [
+            {
+              "id": "REST_API",
+              "name": {
+                "value": "api rest",
+                "synonyms": [
+                  "una api rest",
+                  "rest",
+                  "api restful"
+                ]
+              }
+            },
+            {
+              "id": "GRAPHQL",
+              "name": {
+                "value": "graphql",
+                "synonyms": [
+                  "graph q l"
+                ]
+              }
+            },
+            {
+              "id": "DOCKER",
+              "name": {
+                "value": "docker",
+                "synonyms": [
+                  "un contenedor",
+                  "contenedores"
+                ]
+              }
+            },
+            {
+              "id": "KUBERNETES",
+              "name": {
+                "value": "kubernetes",
+                "synonyms": [
+                  "k ocho s",
+                  "cubernetes"
+                ]
+              }
+            },
+            {
+              "id": "CLOSURE",
+              "name": {
+                "value": "un closure",
+                "synonyms": [
+                  "closure",
+                  "una clausura",
+                  "closures"
+                ]
+              }
+            },
+            {
+              "id": "PROMISE",
+              "name": {
+                "value": "una promesa",
+                "synonyms": [
+                  "promesa",
+                  "promise",
+                  "promesas"
+                ]
+              }
+            },
+            {
+              "id": "ASYNC_AWAIT",
+              "name": {
+                "value": "async await",
+                "synonyms": [
+                  "async y await",
+                  "programación asíncrona"
+                ]
+              }
+            },
+            {
+              "id": "SOLID",
+              "name": {
+                "value": "solid",
+                "synonyms": [
+                  "los principios solid",
+                  "principios solid"
+                ]
+              }
+            },
+            {
+              "id": "DEPENDENCY_INJECTION",
+              "name": {
+                "value": "inyección de dependencias",
+                "synonyms": [
+                  "dependency injection",
+                  "inyectar dependencias"
+                ]
+              }
+            },
+            {
+              "id": "MICROSERVICES",
+              "name": {
+                "value": "microservicios",
+                "synonyms": [
+                  "arquitectura de microservicios",
+                  "un microservicio"
+                ]
+              }
+            },
+            {
+              "id": "BIG_O",
+              "name": {
+                "value": "big o",
+                "synonyms": [
+                  "la notación big o",
+                  "complejidad algorítmica",
+                  "notación o grande"
+                ]
+              }
+            },
+            {
+              "id": "RECURSION",
+              "name": {
+                "value": "recursión",
+                "synonyms": [
+                  "recursividad",
+                  "una función recursiva"
+                ]
+              }
+            },
+            {
+              "id": "REBASE_VS_MERGE",
+              "name": {
+                "value": "rebase contra merge",
+                "synonyms": [
+                  "rebase",
+                  "la diferencia entre rebase y merge"
+                ]
+              }
+            },
+            {
+              "id": "CI_CD",
+              "name": {
+                "value": "ci cd",
+                "synonyms": [
+                  "integración continua",
+                  "despliegue continuo",
+                  "un pipeline"
+                ]
+              }
+            },
+            {
+              "id": "TDD",
+              "name": {
+                "value": "tdd",
+                "synonyms": [
+                  "desarrollo guiado por pruebas",
+                  "test driven development"
+                ]
+              }
+            },
+            {
+              "id": "ORM",
+              "name": {
+                "value": "un orm",
+                "synonyms": [
+                  "orm",
+                  "mapeo objeto relacional"
+                ]
+              }
+            },
+            {
+              "id": "JWT",
+              "name": {
+                "value": "jwt",
+                "synonyms": [
+                  "un token jwt",
+                  "json web token"
+                ]
+              }
+            },
+            {
+              "id": "CORS",
+              "name": {
+                "value": "cors",
+                "synonyms": [
+                  "un error de cors",
+                  "el error de cors"
+                ]
+              }
+            },
+            {
+              "id": "WEBSOCKET",
+              "name": {
+                "value": "websocket",
+                "synonyms": [
+                  "websockets",
+                  "un websocket"
+                ]
+              }
+            },
+            {
+              "id": "HOISTING",
+              "name": {
+                "value": "hoisting",
+                "synonyms": [
+                  "el hoisting"
+                ]
+              }
+            },
+            {
+              "id": "CACHE",
+              "name": {
+                "value": "caché",
+                "synonyms": [
+                  "cache",
+                  "una caché",
+                  "cachear"
+                ]
+              }
+            },
+            {
+              "id": "IDEMPOTENCY",
+              "name": {
+                "value": "idempotencia",
+                "synonyms": [
+                  "idempotente",
+                  "una operación idempotente"
+                ]
+              }
+            },
+            {
+              "id": "SERVERLESS",
+              "name": {
+                "value": "serverless",
+                "synonyms": [
+                  "sin servidor",
+                  "aws lambda",
+                  "una función lambda"
+                ]
+              }
+            },
+            {
+              "id": "MVC",
+              "name": {
+                "value": "mvc",
+                "synonyms": [
+                  "el patrón mvc",
+                  "modelo vista controlador"
+                ]
+              }
+            },
+            {
+              "id": "RACE_CONDITION",
+              "name": {
+                "value": "una condición de carrera",
+                "synonyms": [
+                  "condición de carrera",
+                  "race condition"
+                ]
+              }
+            },
+            {
+              "id": "DEADLOCK",
+              "name": {
+                "value": "deadlock",
+                "synonyms": [
+                  "un deadlock",
+                  "interbloqueo"
+                ]
+              }
+            },
+            {
+              "id": "HASH",
+              "name": {
+                "value": "un hash",
+                "synonyms": [
+                  "hash",
+                  "función hash",
+                  "hashing"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "NUMBER_BASE",
+          "values": [
+            {
+              "id": "BINARY",
+              "name": {
+                "value": "binario",
+                "synonyms": [
+                  "base dos",
+                  "binary"
+                ]
+              }
+            },
+            {
+              "id": "OCTAL",
+              "name": {
+                "value": "octal",
+                "synonyms": [
+                  "base ocho"
+                ]
+              }
+            },
+            {
+              "id": "DECIMAL",
+              "name": {
+                "value": "decimal",
+                "synonyms": [
+                  "base diez"
+                ]
+              }
+            },
+            {
+              "id": "HEXADECIMAL",
+              "name": {
+                "value": "hexadecimal",
+                "synonyms": [
+                  "hex",
+                  "base dieciséis"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GENERATABLE",
+          "values": [
+            {
+              "id": "UUID",
+              "name": {
+                "value": "uuid",
+                "synonyms": [
+                  "u u i d",
+                  "guid",
+                  "identificador único",
+                  "id único"
+                ]
+              }
+            },
+            {
+              "id": "PASSWORD",
+              "name": {
+                "value": "contraseña",
+                "synonyms": [
+                  "contraseña segura",
+                  "password",
+                  "clave segura"
+                ]
+              }
+            },
+            {
+              "id": "PORT",
+              "name": {
+                "value": "puerto",
+                "synonyms": [
+                  "número de puerto",
+                  "puerto libre",
+                  "puerto aleatorio"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

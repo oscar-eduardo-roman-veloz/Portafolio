@@ -1,0 +1,19 @@
+{
+  "name": "alexa-dev-assistant",
+  "version": "1.0.0",
+  "description": "Skill de Alexa con utilidades para programadores (HTTP, Git, conceptos, pomodoro, modo patito, GitHub y Claude).",
+  "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "build:model": "node ../scripts/build-model.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0",
+    "ask-sdk-core": "^2.14.0",
+    "ask-sdk-model": "^1.86.0"
+  }
+}
