@@ -1,38 +1,41 @@
 # Entre Nosotros — Preguntas para parejas (v1)
 
-App web (funciona en celular y escritorio, instalable como app) con 50 preguntas de profundidad para conversar en pareja,
-organizadas en 8 categorías, subcategorías y 3 niveles. Cada pregunta trae subpreguntas que
-ayudan a desarrollarla y, si hace falta, una nota de contexto.
+App web instalable (PWA) con 50 preguntas de profundidad para conversar en pareja. Funciona en el
+navegador de la PC y se instala como app en Android e iPhone. Cada pregunta tiene categoría,
+subcategoría, nivel de profundidad, subpreguntas que guían la conversación y, si hace falta,
+una nota de contexto.
 
-## Cómo usarla
-- **Local:** abre `index.html` en el navegador (doble clic).
-- **En el celular:** publica la carpeta (p. ej. GitHub Pages) y desde el navegador elige
-  "Agregar a pantalla de inicio". Funciona sin conexión después de abrirla una vez.
-
-El progreso (respondidas, favoritas, nombres) se guarda solo en el dispositivo.
-
-## Estructura de datos
-| Archivo | Rol |
+## Archivos
+| Archivo | Para qué sirve |
 |---|---|
-| `data/preguntas.json` | **Fuente única de verdad** (documento estilo NoSQL): niveles, categorías con subcategorías y preguntas. |
-| `data/preguntas.js` | Generado. Es lo que carga la app. |
-| `db/schema.sql` | Esquema relacional (SQLite/PostgreSQL): niveles, categorías, subcategorías, preguntas y subpreguntas, con `texto_normalizado UNIQUE` contra duplicados. |
-| `db/seed.sql` | Generado. Inserta todos los datos. |
+| `index.html` | Toda la app (diseño y lógica). |
+| `preguntas.json` | **Las preguntas.** Es el único archivo que hay que tocar para agregarlas o editarlas. |
+| `manifest.webmanifest`, `sw.js`, `icons/` | Lo que permite instalarla como app y usarla sin conexión. |
 
-## Agregar preguntas
-1. Añade la pregunta en `data/preguntas.json` con el siguiente ID de su categoría
-   (`con-007`, `int-008`, …), una `subcategoria` y `nivel` existentes, de 1 a 5 `subpreguntas`
-   y, opcionalmente, un `contexto`:
-   ```json
-   { "id": "fut-009", "categoria": "futuro", "subcategoria": "rutina", "nivel": 2,
-     "texto": "¿Cómo sería una mañana normal de nosotros viviendo juntos?",
-     "contexto": "Opcional: una aclaración corta.",
-     "subpreguntas": ["¿Quién se levantaría primero?", "¿Desayunaríamos juntos?"] }
-   ```
-2. Ejecuta `python3 scripts/build.py`. El script:
-   - falla si hay IDs repetidos, subpreguntas faltantes o repetidas, categorías/subcategorías/niveles inválidos o textos duplicados
-     (comparando sin mayúsculas, acentos ni signos);
-   - avisa si una pregunta se parece mucho (≥ 85 %) a otra existente;
-   - regenera `data/preguntas.js` y `db/seed.sql`.
+## Cómo abrirla
+Necesita abrirse desde una dirección web (por ejemplo GitHub Pages): por seguridad, los navegadores
+no dejan leer `preguntas.json` si se abre `index.html` con doble clic.
 
-Para crear una categoría nueva, agrégala en `categorias` con un `prefijo` de 3 letras único.
+- **Probar en la PC:** dentro de esta carpeta, ejecuta `python3 -m http.server` y abre http://localhost:8000
+- **Android (Chrome):** abre la dirección y toca 📲 o "Instalar app".
+- **iPhone (Safari):** Compartir → "Agregar a pantalla de inicio" (el botón 📲 muestra los pasos).
+
+El progreso (respondidas, favoritas, nombres) se guarda solo en ese dispositivo.
+
+## Agregar o editar preguntas
+Agrega un bloque en la lista `preguntas` de `preguntas.json`:
+
+```json
+{ "id": "fut-009", "categoria": "futuro", "subcategoria": "rutina", "nivel": 2,
+  "texto": "¿Cómo sería una mañana normal de nosotros viviendo juntos?",
+  "contexto": "Opcional: una aclaración corta.",
+  "subpreguntas": ["¿Quién se levantaría primero?", "¿Desayunaríamos juntos?"] }
+```
+
+- `id`: prefijo de la categoría + el siguiente número (`con`, `pro`, `rel`, `fut`, `int`, `val`, `hip`, `gra`).
+  No reutilices un ID que ya exista.
+- `categoria` y `subcategoria`: usa los `id` definidos en la lista `categorias` del mismo archivo.
+- `nivel`: 1 Ligera, 2 Media, 3 Profunda.
+- Antes de agregar, busca en el archivo (Ctrl+F) una palabra clave de la pregunta para no duplicarla.
+- Si cambias el significado de IDs existentes, sube el número de `"version"`: eso reinicia el
+  progreso guardado para que no se mezclen preguntas.

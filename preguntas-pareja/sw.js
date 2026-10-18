@@ -1,6 +1,7 @@
 // Service worker: permite usar la app sin conexión una vez abierta.
-const CACHE = "entre-nosotros-v2";
-const FILES = ["./", "index.html", "data/preguntas.js", "manifest.webmanifest", "icon.svg"];
+const CACHE = "entre-nosotros-v3";
+const FILES = ["./", "index.html", "preguntas.json", "manifest.webmanifest",
+  "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));

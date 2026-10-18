@@ -7,8 +7,13 @@
 <meta name="description" content="Preguntas para parejas que invitan a conversar de verdad."/>
 <title>Entre Nosotros</title>
 <link rel="manifest" href="manifest.webmanifest"/>
-<link rel="icon" href="icon.svg" type="image/svg+xml"/>
-<link rel="apple-touch-icon" href="icon.svg"/>
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png"/>
+<!-- iOS: abrir a pantalla completa cuando se agrega a la pantalla de inicio -->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Entre Nosotros"/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -131,6 +136,7 @@ dialog .row { justify-content: flex-end; }
   <header>
     <h1>Entre <span>Nosotros</span></h1>
     <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="installBtn" title="Instalar app" aria-label="Instalar app" hidden>📲</button>
       <button class="icon-btn" id="favsBtn" title="Favoritas" aria-label="Ver favoritas">⭐</button>
       <button class="icon-btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
     </div>
@@ -207,11 +213,44 @@ dialog .row { justify-content: flex-end; }
   </div>
 </dialog>
 
-<script src="data/preguntas.js"></script>
+<dialog id="iosDialog">
+  <h2>📲 Instalar en iPhone</h2>
+  <p class="hint">1. Abre esta página en <strong>Safari</strong>.<br/>2. Toca el botón <strong>Compartir</strong> (el cuadro con la flecha ↑).<br/>3. Elige <strong>“Agregar a pantalla de inicio”</strong>.</p>
+  <div class="row"><button class="btn primary" onclick="this.closest('dialog').close()">Entendido</button></div>
+</dialog>
+
 <script>
+// Instalación como app (PWA): Android y PC muestran el aviso nativo; iPhone necesita instrucciones.
 (() => {
-  const DB = window.PREGUNTAS_DB;
+  const btn = document.getElementById("installBtn");
+  const installed = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  let promptEvent = null;
+  if (installed) return;
+  if (isIOS) btn.hidden = false;
+  addEventListener("beforeinstallprompt", e => { e.preventDefault(); promptEvent = e; btn.hidden = false; });
+  addEventListener("appinstalled", () => { btn.hidden = true; });
+  btn.onclick = async () => {
+    if (promptEvent) { promptEvent.prompt(); await promptEvent.userChoice; promptEvent = null; btn.hidden = true; }
+    else document.getElementById("iosDialog").showModal();
+  };
+})();
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
+</script>
+<script>
+(async () => {
   const $ = (id) => document.getElementById(id);
+  let DB;
+  try {
+    DB = await (await fetch("preguntas.json", { cache: "no-cache" })).json();
+  } catch (e) {
+    $("setup").innerHTML = `<div class="panel"><h2>No se pudieron cargar las preguntas</h2>
+      <p class="hint">Abre la app desde su dirección web (por ejemplo GitHub Pages) y no haciendo doble clic en el archivo:
+      los navegadores no dejan leer <code>preguntas.json</code> desde el disco.</p></div>`;
+    return;
+  }
   const catById = Object.fromEntries(DB.categorias.map(c => [c.id, c]));
   const subName = (c, s) => (catById[c].subcategorias.find(x => x.id === s) || {}).nombre || s;
 
@@ -427,9 +466,6 @@ dialog .row { justify-content: flex-end; }
 
   renderCats(); renderLevels();
 
-  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-    navigator.serviceWorker.register("sw.js").catch(() => {});
-  }
 })();
 </script>
 </body>
