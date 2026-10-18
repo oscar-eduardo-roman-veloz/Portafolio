@@ -1,0 +1,14 @@
+{
+  "name": "Entre Nosotros — Preguntas para parejas",
+  "short_name": "Entre Nosotros",
+  "description": "Preguntas que invitan a conversar de verdad en pareja.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1a1220",
+  "theme_color": "#1a1220",
+  "lang": "es",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

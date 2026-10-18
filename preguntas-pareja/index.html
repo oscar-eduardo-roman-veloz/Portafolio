@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#1a1220"/>
+<meta name="description" content="Preguntas para parejas que invitan a conversar de verdad."/>
+<title>Entre Nosotros</title>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="icon" href="icon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="icon.svg"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbf6f3; --surface: #ffffff; --surface2: #f4ebe6; --border: #ead9d0;
+  --text: #2a1d24; --muted: #7a6670; --accent: #c2416b; --accent-soft: #fbe3ea;
+  --shadow: 0 10px 30px rgba(80, 30, 50, .10);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #140e14; --surface: #1f1720; --surface2: #2a1f2b; --border: #3a2b3b;
+    --text: #f5e9ef; --muted: #b29fab; --accent: #f06b95; --accent-soft: #3d1a29;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .4);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #140e14; --surface: #1f1720; --surface2: #2a1f2b; --border: #3a2b3b;
+  --text: #f5e9ef; --muted: #b29fab; --accent: #f06b95; --accent-soft: #3d1a29;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .4);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: "DM Sans", system-ui, sans-serif; line-height: 1.5;
+  min-height: 100vh; min-height: 100dvh;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 20px 16px 48px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+h1 { font-family: "Fraunces", serif; font-size: 1.6rem; margin: 0; letter-spacing: -.01em; }
+h1 span { color: var(--accent); }
+h2 { font-family: "Fraunces", serif; font-size: 1.15rem; margin: 0 0 10px; }
+.icon-btn {
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  width: 40px; height: 40px; border-radius: 12px; font-size: 1.1rem; cursor: pointer;
+}
+.panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+  padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow);
+}
+.hint { color: var(--muted); font-size: .9rem; margin: 0 0 12px; }
+.names { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+input[type=text] {
+  width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border);
+  background: var(--surface2); color: var(--text); font: inherit;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 9px 13px; border-radius: 999px;
+  border: 1.5px solid var(--border); background: var(--surface2); color: var(--text);
+  font: inherit; font-size: .92rem; cursor: pointer; transition: transform .1s, background .15s;
+}
+.chip:active { transform: scale(.97); }
+.chip small { color: var(--muted); font-size: .78rem; }
+.chip[aria-pressed="true"] { border-color: var(--c, var(--accent)); background: color-mix(in srgb, var(--c, var(--accent)) 18%, var(--surface)); }
+.chip[aria-pressed="true"] small { color: var(--text); }
+.row { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: 12px; }
+.toggle { display: flex; align-items: center; gap: 8px; font-size: .92rem; color: var(--muted); cursor: pointer; }
+.toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
+.btn {
+  border: none; border-radius: 14px; padding: 13px 18px; font: inherit; font-weight: 700;
+  cursor: pointer; background: var(--surface2); color: var(--text); border: 1px solid var(--border);
+}
+.btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.block { width: 100%; font-size: 1.05rem; padding: 15px; }
+
+/* Juego */
+#game[hidden], #setup[hidden], #favs[hidden] { display: none; }
+.progress { display: flex; justify-content: space-between; font-size: .85rem; color: var(--muted); margin-bottom: 8px; }
+.bar { height: 6px; border-radius: 6px; background: var(--surface2); overflow: hidden; margin-bottom: 16px; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+.card {
+  position: relative; background: var(--surface); border-radius: 24px; padding: 26px 22px 22px;
+  border: 1px solid var(--border); box-shadow: var(--shadow); min-height: 320px;
+  display: flex; flex-direction: column; border-top: 6px solid var(--c, var(--accent));
+  touch-action: pan-y;
+}
+.card.enter { animation: enter .28s ease-out; }
+@keyframes enter { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: .82rem; color: var(--muted); }
+.badge { padding: 4px 10px; border-radius: 999px; background: var(--surface2); color: var(--text); font-weight: 500; }
+.level { display: inline-flex; gap: 3px; margin-left: auto; align-items: center; }
+.level b { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+.level b.on { background: var(--c, var(--accent)); }
+.question {
+  font-family: "Fraunces", serif; font-size: clamp(1.35rem, 5vw, 1.85rem); line-height: 1.3;
+  margin: 28px 0; flex: 1; display: flex; align-items: center;
+}
+.turn { background: var(--accent-soft); border-radius: 14px; padding: 12px 14px; font-size: .95rem; }
+.turn strong { color: var(--accent); }
+.actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 14px; }
+.actions .btn { padding: 12px 8px; font-size: .92rem; }
+.actions .btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+.nav { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 10px; }
+.empty { text-align: center; padding: 40px 10px; color: var(--muted); }
+.tip { font-size: .82rem; color: var(--muted); text-align: center; margin-top: 14px; }
+
+/* Favoritas */
+.fav-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.fav-list li { background: var(--surface2); border-radius: 14px; padding: 12px 14px; border-left: 4px solid var(--c); }
+.fav-list small { color: var(--muted); display: block; margin-bottom: 2px; }
+
+/* Modal +18 */
+dialog { border: none; border-radius: 20px; padding: 22px; max-width: 420px; width: calc(100% - 32px); background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+dialog::backdrop { background: rgba(20, 8, 15, .55); }
+dialog .row { justify-content: flex-end; }
+
+@media (max-width: 420px) {
+  .names { grid-template-columns: 1fr; }
+  .actions .btn { font-size: .85rem; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Entre <span>Nosotros</span></h1>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="favsBtn" title="Favoritas" aria-label="Ver favoritas">⭐</button>
+      <button class="icon-btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </header>
+
+  <!-- CONFIGURACIÓN -->
+  <section id="setup">
+    <div class="panel">
+      <h2>¿Quiénes juegan?</h2>
+      <p class="hint">Se turnan para responder primero; después responde el otro.</p>
+      <div class="names">
+        <input type="text" id="p1" placeholder="Nombre 1" maxlength="20" autocomplete="off"/>
+        <input type="text" id="p2" placeholder="Nombre 2" maxlength="20" autocomplete="off"/>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Categorías</h2>
+      <p class="hint">Elige una o varias.</p>
+      <div class="chips" id="cats"></div>
+      <div class="row">
+        <button class="chip" id="allCats" type="button">Seleccionar todas</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Profundidad</h2>
+      <div class="chips" id="levels"></div>
+      <div class="row">
+        <label class="toggle"><input type="checkbox" id="hideAnswered"/> Ocultar las ya respondidas</label>
+        <button class="chip" id="resetBtn" type="button">Reiniciar progreso</button>
+      </div>
+    </div>
+
+    <button class="btn primary block" id="startBtn">Empezar a conversar</button>
+  </section>
+
+  <!-- JUEGO -->
+  <section id="game" hidden>
+    <div class="progress"><span id="counter"></span><span id="answeredCount"></span></div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div id="cardHost"></div>
+    <div class="actions" id="actions">
+      <button class="btn" id="favBtn" aria-pressed="false">⭐ Favorita</button>
+      <button class="btn" id="doneBtn" aria-pressed="false">✓ Respondida</button>
+      <button class="btn" id="skipBtn">↷ Saltar</button>
+    </div>
+    <div class="nav">
+      <button class="btn" id="prevBtn">← Anterior</button>
+      <button class="btn primary" id="nextBtn">Siguiente →</button>
+    </div>
+    <p class="tip">Tómense su tiempo. Escuchen sin interrumpir y sin juzgar. 💬<br/>Desliza la tarjeta o usa las flechas del teclado.</p>
+    <div class="row" style="justify-content:center">
+      <button class="chip" id="backBtn" type="button">⚙️ Cambiar categorías</button>
+    </div>
+  </section>
+
+  <!-- FAVORITAS -->
+  <section id="favs" hidden>
+    <div class="panel">
+      <h2>Preguntas favoritas</h2>
+      <ul class="fav-list" id="favList"></ul>
+      <div class="row"><button class="btn" id="favsBack">← Volver</button></div>
+    </div>
+  </section>
+</div>
+
+<dialog id="adultDialog">
+  <h2>🔥 Contenido para adultos</h2>
+  <p class="hint">Esta categoría incluye preguntas sobre deseo, sexualidad y límites. Úsala solo si ambos son mayores de edad y se sienten cómodos. Cualquiera puede saltar una pregunta sin dar explicaciones.</p>
+  <div class="row">
+    <button class="btn" value="no" id="adultNo">Mejor no</button>
+    <button class="btn primary" value="yes" id="adultYes">Somos +18, activar</button>
+  </div>
+</dialog>
+
+<script src="data/preguntas.js"></script>
+<script>
+(() => {
+  const DB = window.PREGUNTAS_DB;
+  const $ = (id) => document.getElementById(id);
+  const catById = Object.fromEntries(DB.categorias.map(c => [c.id, c]));
+  const subName = (c, s) => (catById[c].subcategorias.find(x => x.id === s) || {}).nombre || s;
+
+  // ---------- Estado persistente (solo en este dispositivo) ----------
+  const KEY = "entre-nosotros-v1";
+  const defaults = {
+    p1: "", p2: "", cats: DB.categorias.filter(c => !c.adulto).map(c => c.id),
+    levels: [1, 2, 3], hideAnswered: false, adultOk: false,
+    answered: [], favs: [], theme: null
+  };
+  let state = { ...defaults };
+  try { state = { ...defaults, ...JSON.parse(localStorage.getItem(KEY) || "{}") }; } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+
+  // ---------- Tema ----------
+  const applyTheme = () => state.theme ? document.documentElement.setAttribute("data-theme", state.theme) : document.documentElement.removeAttribute("data-theme");
+  applyTheme();
+  $("themeBtn").onclick = () => {
+    const dark = state.theme ? state.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    state.theme = dark ? "light" : "dark"; applyTheme(); save();
+  };
+
+  // ---------- Configuración ----------
+  $("p1").value = state.p1; $("p2").value = state.p2;
+  $("p1").oninput = e => { state.p1 = e.target.value.trim(); save(); };
+  $("p2").oninput = e => { state.p2 = e.target.value.trim(); save(); };
+  $("hideAnswered").checked = state.hideAnswered;
+  $("hideAnswered").onchange = e => { state.hideAnswered = e.target.checked; save(); };
+
+  function renderCats() {
+    $("cats").innerHTML = "";
+    DB.categorias.forEach(c => {
+      const n = DB.preguntas.filter(p => p.categoria === c.id).length;
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "chip"; b.style.setProperty("--c", c.color);
+      b.title = c.descripcion;
+      b.setAttribute("aria-pressed", state.cats.includes(c.id));
+      b.innerHTML = `${c.emoji} ${c.nombre}${c.adulto ? " +18" : ""} <small>${n}</small>`;
+      b.onclick = () => toggleCat(c);
+      $("cats").appendChild(b);
+    });
+    const all = DB.categorias.every(c => state.cats.includes(c.id));
+    $("allCats").textContent = all ? "Quitar todas" : "Seleccionar todas";
+    updateStart();
+  }
+
+  function askAdult() {
+    return new Promise(resolve => {
+      const d = $("adultDialog");
+      $("adultYes").onclick = () => { d.close(); resolve(true); };
+      $("adultNo").onclick = () => { d.close(); resolve(false); };
+      d.oncancel = () => resolve(false);
+      d.showModal();
+    });
+  }
+
+  async function toggleCat(c) {
+    if (state.cats.includes(c.id)) state.cats = state.cats.filter(x => x !== c.id);
+    else {
+      if (c.adulto && !state.adultOk) { if (!(await askAdult())) return; state.adultOk = true; }
+      state.cats.push(c.id);
+    }
+    save(); renderCats();
+  }
+
+  $("allCats").onclick = async () => {
+    if (DB.categorias.every(c => state.cats.includes(c.id))) state.cats = [];
+    else {
+      if (!state.adultOk && DB.categorias.some(c => c.adulto)) state.adultOk = await askAdult();
+      state.cats = DB.categorias.filter(c => !c.adulto || state.adultOk).map(c => c.id);
+    }
+    save(); renderCats();
+  };
+
+  function renderLevels() {
+    $("levels").innerHTML = "";
+    DB.niveles.forEach(n => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "chip"; b.title = n.descripcion;
+      b.setAttribute("aria-pressed", state.levels.includes(n.id));
+      b.innerHTML = `${"●".repeat(n.id)}${"○".repeat(3 - n.id)} ${n.nombre}`;
+      b.onclick = () => {
+        state.levels = state.levels.includes(n.id) ? state.levels.filter(x => x !== n.id) : [...state.levels, n.id];
+        save(); renderLevels();
+      };
+      $("levels").appendChild(b);
+    });
+    updateStart();
+  }
+
+  const updateStart = () => { $("startBtn").disabled = !state.cats.length || !state.levels.length; };
+
+  $("resetBtn").onclick = () => {
+    if (confirm("¿Borrar las preguntas marcadas como respondidas?")) { state.answered = []; save(); }
+  };
+
+  // ---------- Juego ----------
+  let deck = [], idx = 0, turn = 0;
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const names = () => [state.p1 || "Persona 1", state.p2 || "Persona 2"];
+
+  function start() {
+    deck = shuffle(DB.preguntas.filter(p =>
+      state.cats.includes(p.categoria) && state.levels.includes(p.nivel) &&
+      !(state.hideAnswered && state.answered.includes(p.id))
+    ));
+    idx = 0; turn = Math.round(Math.random());
+    show("game"); renderCard();
+  }
+
+  function renderCard() {
+    const total = deck.length;
+    const answeredInDeck = deck.filter(p => state.answered.includes(p.id)).length;
+    $("counter").textContent = total ? `Pregunta ${idx + 1} de ${total}` : "";
+    $("answeredCount").textContent = total ? `${answeredInDeck} respondidas` : "";
+    $("barFill").style.width = total ? `${(answeredInDeck / total) * 100}%` : "0";
+    ["actions", "prevBtn", "nextBtn"].forEach(id => $(id).style.visibility = total ? "visible" : "hidden");
+
+    if (!total) {
+      $("cardHost").innerHTML = `<div class="card"><div class="empty"><p style="font-size:2rem">🎉</p>
+        <p>No hay preguntas con estos filtros.<br/>Prueben otras categorías o desactiven “Ocultar las ya respondidas”.</p></div></div>`;
+      return;
+    }
+    const p = deck[idx], c = catById[p.categoria], [a, b] = names();
+    const first = turn ? b : a, second = turn ? a : b;
+    $("cardHost").innerHTML = `
+      <article class="card enter" style="--c:${c.color}" id="card">
+        <div class="meta">
+          <span class="badge">${c.emoji} ${c.nombre}</span>
+          <span>${subName(p.categoria, p.subcategoria)}</span>
+          <span class="level" title="Profundidad: ${DB.niveles[p.nivel - 1].nombre}">
+            ${[1, 2, 3].map(i => `<b class="${i <= p.nivel ? "on" : ""}"></b>`).join("")}
+          </span>
+        </div>
+        <div class="question"></div>
+        <div class="turn">Responde primero <strong></strong>, luego <strong></strong>.</div>
+      </article>`;
+    $("cardHost").querySelector(".question").textContent = p.texto;
+    const strongs = $("cardHost").querySelectorAll(".turn strong");
+    strongs[0].textContent = first; strongs[1].textContent = second;
+
+    $("favBtn").setAttribute("aria-pressed", state.favs.includes(p.id));
+    $("doneBtn").setAttribute("aria-pressed", state.answered.includes(p.id));
+    $("prevBtn").disabled = idx === 0;
+    $("nextBtn").textContent = idx === total - 1 ? "Volver a barajar ↻" : "Siguiente →";
+    attachSwipe($("card"));
+  }
+
+  function next(markDone) {
+    const p = deck[idx];
+    if (markDone && p && !state.answered.includes(p.id)) { state.answered.push(p.id); save(); }
+    if (idx < deck.length - 1) { idx++; turn = 1 - turn; renderCard(); }
+    else start();
+  }
+  function prev() { if (idx > 0) { idx--; turn = 1 - turn; renderCard(); } }
+
+  const toggleIn = (list, id) => list.includes(id) ? list.filter(x => x !== id) : [...list, id];
+  $("favBtn").onclick = () => { state.favs = toggleIn(state.favs, deck[idx].id); save(); renderCard(); };
+  $("doneBtn").onclick = () => { state.answered = toggleIn(state.answered, deck[idx].id); save(); renderCard(); };
+  $("skipBtn").onclick = () => next(false);
+  $("nextBtn").onclick = () => next(true);
+  $("prevBtn").onclick = prev;
+  $("startBtn").onclick = start;
+  $("backBtn").onclick = () => show("setup");
+
+  document.addEventListener("keydown", e => {
+    if ($("game").hidden || e.target.tagName === "INPUT" || $("adultDialog").open) return;
+    if (e.key === "ArrowRight") next(true);
+    if (e.key === "ArrowLeft") prev();
+  });
+
+  function attachSwipe(el) {
+    let x0 = null;
+    el.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+    el.addEventListener("touchend", e => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (dx < -60) next(true); else if (dx > 60) prev();
+    });
+  }
+
+  // ---------- Favoritas ----------
+  function renderFavs() {
+    const list = $("favList"); list.innerHTML = "";
+    const favs = DB.preguntas.filter(p => state.favs.includes(p.id));
+    if (!favs.length) { list.innerHTML = `<li style="--c:var(--border)">Aún no tienen favoritas. Toquen ⭐ en una pregunta para guardarla.</li>`; return; }
+    favs.forEach(p => {
+      const c = catById[p.categoria], li = document.createElement("li");
+      li.style.setProperty("--c", c.color);
+      li.innerHTML = `<small>${c.emoji} ${c.nombre} · ${subName(p.categoria, p.subcategoria)}</small><span></span>`;
+      li.querySelector("span").textContent = p.texto;
+      list.appendChild(li);
+    });
+  }
+  let lastView = "setup";
+  $("favsBtn").onclick = () => { if ($("favs").hidden) { renderFavs(); show("favs"); } else show(lastView); };
+  $("favsBack").onclick = () => show(lastView);
+
+  function show(view) {
+    if (view !== "favs") lastView = view;
+    ["setup", "game", "favs"].forEach(v => $(v).hidden = v !== view);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  renderCats(); renderLevels();
+
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  }
+})();
+</script>
+</body>
+</html>
