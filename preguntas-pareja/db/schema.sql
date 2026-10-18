@@ -30,10 +30,19 @@ CREATE TABLE preguntas (
   subcategoria_id   VARCHAR(30)  NOT NULL,
   nivel_id          INTEGER      NOT NULL REFERENCES niveles(id),
   texto             VARCHAR(300) NOT NULL,
+  contexto          VARCHAR(300),              -- aclaración opcional, ej. "un martes normal"
   -- minúsculas, sin acentos ni signos: evita duplicados con distinta puntuación
   texto_normalizado VARCHAR(300) NOT NULL UNIQUE,
   activa            SMALLINT     NOT NULL DEFAULT 1,
   FOREIGN KEY (categoria_id, subcategoria_id) REFERENCES subcategorias(categoria_id, id)
+);
+
+-- Preguntas de apoyo que ayudan a desarrollar la pregunta principal.
+CREATE TABLE subpreguntas (
+  pregunta_id VARCHAR(10)  NOT NULL REFERENCES preguntas(id),
+  orden       SMALLINT     NOT NULL,
+  texto       VARCHAR(300) NOT NULL,
+  PRIMARY KEY (pregunta_id, orden)
 );
 
 CREATE INDEX idx_preguntas_categoria ON preguntas (categoria_id, subcategoria_id);

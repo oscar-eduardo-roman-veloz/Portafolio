@@ -4,6 +4,7 @@
 Uso:  python3 scripts/build.py
 
 - Verifica IDs únicos, categorías/subcategorías/niveles válidos y prefijos.
+- Exige de 1 a 5 subpreguntas por pregunta, sin repetirse; `contexto` es opcional.
 - Detecta preguntas duplicadas (texto normalizado) y casi duplicadas (similitud >= 0.85).
 - Genera data/preguntas.js (lo carga la app) y db/seed.sql (para la base SQL).
 """
@@ -28,6 +29,8 @@ def normalize(text):
 
 
 def sql(value):
+    if value is None:
+        return "NULL"
     if isinstance(value, bool):
         return "1" if value else "0"
     if isinstance(value, int):
@@ -57,6 +60,11 @@ def validate(db):
             errors.append(f"{pid}: subcategoría '{p['subcategoria']}' no existe en '{cat['id']}'")
         if p["nivel"] not in niveles:
             errors.append(f"{pid}: nivel inválido {p['nivel']}")
+        subs = p.get("subpreguntas", [])
+        if not 1 <= len(subs) <= 5:
+            errors.append(f"{pid}: debe tener entre 1 y 5 subpreguntas (tiene {len(subs)})")
+        if len({normalize(x) for x in subs}) != len(subs) or any(not x.strip() for x in subs):
+            errors.append(f"{pid}: subpreguntas vacías o repetidas")
         norm = normalize(p["texto"])
         if norm in seen_text:
             errors.append(f"{pid}: duplicada de {seen_text[norm]}")
@@ -80,9 +88,12 @@ def build_sql(db):
             lines.append(f"INSERT INTO subcategorias (categoria_id, id, nombre) VALUES ({sql(c['id'])}, {sql(s['id'])}, {sql(s['nombre'])});")
     for p in db["preguntas"]:
         lines.append(
-            "INSERT INTO preguntas (id, categoria_id, subcategoria_id, nivel_id, texto, texto_normalizado) VALUES "
-            f"({sql(p['id'])}, {sql(p['categoria'])}, {sql(p['subcategoria'])}, {sql(p['nivel'])}, {sql(p['texto'])}, {sql(normalize(p['texto']))});"
+            "INSERT INTO preguntas (id, categoria_id, subcategoria_id, nivel_id, texto, contexto, texto_normalizado) VALUES "
+            f"({sql(p['id'])}, {sql(p['categoria'])}, {sql(p['subcategoria'])}, {sql(p['nivel'])}, {sql(p['texto'])}, "
+            f"{sql(p.get('contexto'))}, {sql(normalize(p['texto']))});"
         )
+        for orden, sub in enumerate(p["subpreguntas"], 1):
+            lines.append(f"INSERT INTO subpreguntas (pregunta_id, orden, texto) VALUES ({sql(p['id'])}, {orden}, {sql(sub)});")
     lines.append("COMMIT;")
     return "\n".join(lines) + "\n"
 

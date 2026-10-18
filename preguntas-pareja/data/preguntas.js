@@ -1,16 +1,16 @@
 // Generado por scripts/build.py a partir de preguntas.json. No editar a mano.
 window.PREGUNTAS_DB = {
- "version": 1,
+ "version": 2,
  "niveles": [
   {
    "id": 1,
    "nombre": "Ligera",
-   "descripcion": "Para romper el hielo y reír juntos"
+   "descripcion": "Para entrar en calor, imaginar y reír juntos"
   },
   {
    "id": 2,
    "nombre": "Media",
-   "descripcion": "Invita a reflexionar y abrirse un poco más"
+   "descripcion": "Invita a reflexionar y abrirse"
   },
   {
    "id": 3,
@@ -103,12 +103,16 @@ window.PREGUNTAS_DB = {
   {
    "id": "futuro",
    "prefijo": "fut",
-   "nombre": "Futuro juntos",
+   "nombre": "Futuro y vida juntos",
    "emoji": "🧭",
    "color": "#f59e0b",
    "adulto": false,
-   "descripcion": "Metas, familia, hogar y dinero.",
+   "descripcion": "Nuestra rutina soñada, el hogar, la familia, el dinero y las metas.",
    "subcategorias": [
+    {
+     "id": "rutina",
+     "nombre": "Vida cotidiana"
+    },
     {
      "id": "metas",
      "nombre": "Metas y sueños"
@@ -233,771 +237,603 @@ window.PREGUNTAS_DB = {
    "id": "con-001",
    "categoria": "conocernos",
    "subcategoria": "infancia",
-   "nivel": 1,
-   "texto": "¿Cuál es el recuerdo más feliz que tienes de tu infancia?"
+   "nivel": 2,
+   "texto": "Si pudieras llevarme de visita a la casa donde creciste, ¿qué me mostrarías primero?",
+   "subpreguntas": [
+    "¿Qué rincón era tu lugar seguro?",
+    "¿Qué olores o sonidos recuerdas de ahí?",
+    "¿Qué parte de ese niño o niña sigue viva en ti hoy?"
+   ]
   },
   {
    "id": "con-002",
    "categoria": "conocernos",
    "subcategoria": "infancia",
-   "nivel": 2,
-   "texto": "¿Qué te hacía sentir solo/a de niño/a y nunca se lo contaste a nadie?"
+   "nivel": 3,
+   "texto": "¿Cómo se vivía el amor en tu casa cuando eras pequeño/a y qué aprendiste de eso sin darte cuenta?",
+   "subpreguntas": [
+    "¿Cómo se pedían perdón los adultos de tu casa?",
+    "¿Qué te gustaría repetir conmigo?",
+    "¿Qué no quieres repetir nunca?"
+   ]
   },
   {
    "id": "con-003",
    "categoria": "conocernos",
-   "subcategoria": "infancia",
+   "subcategoria": "personalidad",
    "nivel": 2,
-   "texto": "¿Cómo se demostraba el cariño en tu casa cuando eras pequeño/a?"
+   "texto": "Describe un día en el que te sentiste plenamente tú mismo/a.",
+   "subpreguntas": [
+    "¿Dónde estabas y con quién?",
+    "¿Qué hacías que te hacía sentir así?",
+    "¿Qué podríamos hacer para que tengas más días como ese?"
+   ]
   },
   {
    "id": "con-004",
    "categoria": "conocernos",
-   "subcategoria": "infancia",
-   "nivel": 1,
-   "texto": "¿Qué querías ser de grande y qué pasó con ese sueño?"
+   "subcategoria": "historia",
+   "nivel": 3,
+   "texto": "¿Qué momento partió tu vida en un antes y un después?",
+   "subpreguntas": [
+    "¿Quién eras antes de ese momento?",
+    "¿Qué perdiste y qué ganaste?",
+    "¿Se lo has contado completo a alguien?"
+   ]
   },
   {
    "id": "con-005",
    "categoria": "conocernos",
-   "subcategoria": "personalidad",
-   "nivel": 1,
-   "texto": "¿Qué es algo de ti que la mayoría de la gente no sabe?"
+   "subcategoria": "historia",
+   "nivel": 2,
+   "texto": "Si tu vida fuera un libro, ¿cuáles serían los títulos de sus capítulos hasta hoy?",
+   "subpreguntas": [
+    "¿Cuál fue el capítulo más difícil de vivir?",
+    "¿En qué capítulo aparezco yo?",
+    "¿Cómo te gustaría que se llamara el siguiente?"
+   ]
   },
   {
    "id": "con-006",
    "categoria": "conocernos",
-   "subcategoria": "personalidad",
-   "nivel": 2,
-   "texto": "¿En qué situaciones sientes que eres más tú mismo/a?"
-  },
-  {
-   "id": "con-007",
-   "categoria": "conocernos",
-   "subcategoria": "personalidad",
-   "nivel": 2,
-   "texto": "¿Qué crítica sobre ti te ha dolido más y por qué?"
-  },
-  {
-   "id": "con-008",
-   "categoria": "conocernos",
-   "subcategoria": "personalidad",
-   "nivel": 1,
-   "texto": "¿Qué te recarga de energía cuando estás agotado/a?"
-  },
-  {
-   "id": "con-009",
-   "categoria": "conocernos",
    "subcategoria": "gustos",
    "nivel": 1,
-   "texto": "Si pudieras revivir un día de tu vida, ¿cuál sería?"
-  },
-  {
-   "id": "con-010",
-   "categoria": "conocernos",
-   "subcategoria": "gustos",
-   "nivel": 1,
-   "texto": "¿Qué canción te transporta inmediatamente a otra etapa de tu vida?"
-  },
-  {
-   "id": "con-011",
-   "categoria": "conocernos",
-   "subcategoria": "historia",
-   "nivel": 2,
-   "texto": "¿Qué persona fuera de tu familia influyó más en quien eres hoy?"
-  },
-  {
-   "id": "con-012",
-   "categoria": "conocernos",
-   "subcategoria": "historia",
-   "nivel": 2,
-   "texto": "¿Cuál ha sido la decisión más difícil que has tomado?"
-  },
-  {
-   "id": "con-013",
-   "categoria": "conocernos",
-   "subcategoria": "historia",
-   "nivel": 3,
-   "texto": "¿Qué etapa de tu vida te gustaría que yo hubiera conocido y por qué?"
-  },
-  {
-   "id": "con-014",
-   "categoria": "conocernos",
-   "subcategoria": "historia",
-   "nivel": 2,
-   "texto": "¿De qué logro personal te sientes orgulloso/a aunque nadie lo haya notado?"
-  },
-  {
-   "id": "con-015",
-   "categoria": "conocernos",
-   "subcategoria": "gustos",
-   "nivel": 1,
-   "texto": "¿Qué pequeño placer cotidiano te alegra el día sin falta?"
+   "texto": "¿Cómo sería tu domingo perfecto si nadie esperara nada de ti?",
+   "subpreguntas": [
+    "¿A qué hora despertarías?",
+    "¿Estarías solo/a o acompañado/a?",
+    "¿Qué no harías por nada del mundo ese día?"
+   ]
   },
   {
    "id": "pro-001",
    "categoria": "profundizar",
    "subcategoria": "miedos",
-   "nivel": 2,
-   "texto": "¿Cuál es tu mayor miedo y de dónde crees que viene?"
+   "nivel": 3,
+   "texto": "¿Cuál es el miedo que más condiciona tus decisiones, aunque casi nunca lo nombres?",
+   "subpreguntas": [
+    "¿Desde cuándo lo sientes?",
+    "¿En qué decisión reciente estuvo presente?",
+    "¿Cómo puedo acompañarte cuando aparezca?"
+   ]
   },
   {
    "id": "pro-002",
    "categoria": "profundizar",
-   "subcategoria": "vulnerabilidad",
-   "nivel": 3,
-   "texto": "¿Cuándo fue la última vez que lloraste y qué lo provocó?"
+   "subcategoria": "emociones",
+   "nivel": 2,
+   "texto": "Cuando estás mal y no lo dices, ¿qué señales das sin darte cuenta?",
+   "subpreguntas": [
+    "¿Qué te gustaría que yo hiciera al notarlas?",
+    "¿Qué preferirías que no hiciera?",
+    "¿Qué palabras te ayudan a abrirte?"
+   ]
   },
   {
    "id": "pro-003",
    "categoria": "profundizar",
-   "subcategoria": "emociones",
-   "nivel": 2,
-   "texto": "¿Qué emoción te cuesta más expresar frente a mí?"
+   "subcategoria": "vulnerabilidad",
+   "nivel": 3,
+   "texto": "¿Qué parte de ti te cuesta mostrarme por miedo a que te quiera menos?",
+   "subpreguntas": [
+    "¿Desde cuándo la escondes?",
+    "¿Qué crees que pasaría si la mostraras?",
+    "¿Qué necesitarías de mí para sentirte seguro/a?"
+   ]
   },
   {
    "id": "pro-004",
    "categoria": "profundizar",
    "subcategoria": "autoconocimiento",
    "nivel": 2,
-   "texto": "¿Qué parte de ti estás intentando sanar o mejorar ahora mismo?"
+   "texto": "Si pudieras sentarte a conversar con tu yo de hace diez años, ¿cómo sería esa conversación?",
+   "subpreguntas": [
+    "¿Qué le agradecerías?",
+    "¿De qué le advertirías?",
+    "¿Qué le sorprendería de tu vida actual?"
+   ]
   },
   {
    "id": "pro-005",
    "categoria": "profundizar",
-   "subcategoria": "vulnerabilidad",
+   "subcategoria": "autoconocimiento",
    "nivel": 3,
-   "texto": "¿Qué necesitas escuchar más a menudo y no te atreves a pedir?"
+   "texto": "¿Qué herida de tu pasado sientes que todavía se activa en nuestra relación?",
+   "subpreguntas": [
+    "¿En qué situaciones la notas?",
+    "¿Cómo reaccionas cuando aparece?",
+    "¿Qué te ayuda a calmarla?"
+   ]
   },
   {
    "id": "pro-006",
    "categoria": "profundizar",
-   "subcategoria": "miedos",
-   "nivel": 3,
-   "texto": "¿Qué te da más miedo perder en tu vida?"
+   "subcategoria": "emociones",
+   "nivel": 2,
+   "texto": "¿Cómo es por dentro un día en el que te sientes realmente en paz?",
+   "subpreguntas": [
+    "¿Qué pensamientos desaparecen?",
+    "¿Qué cambia en tu cuerpo?",
+    "¿Qué cosas de nuestra vida te acercan a esa paz?"
+   ]
   },
   {
    "id": "pro-007",
    "categoria": "profundizar",
-   "subcategoria": "autoconocimiento",
-   "nivel": 2,
-   "texto": "Si pudieras hablar con tu yo de hace diez años, ¿qué le dirías?"
-  },
-  {
-   "id": "pro-008",
-   "categoria": "profundizar",
-   "subcategoria": "emociones",
-   "nivel": 2,
-   "texto": "¿Cómo te das cuenta de que estás llegando a tu límite emocional?"
-  },
-  {
-   "id": "pro-009",
-   "categoria": "profundizar",
    "subcategoria": "vulnerabilidad",
    "nivel": 3,
-   "texto": "¿Hay algo de tu pasado que todavía te pese y quisieras compartir conmigo?"
-  },
-  {
-   "id": "pro-010",
-   "categoria": "profundizar",
-   "subcategoria": "autoconocimiento",
-   "nivel": 2,
-   "texto": "¿Qué creencia sobre ti mismo/a has cambiado en los últimos años?"
-  },
-  {
-   "id": "pro-011",
-   "categoria": "profundizar",
-   "subcategoria": "emociones",
-   "nivel": 2,
-   "texto": "¿Qué haces cuando te sientes triste y no quieres que nadie lo note?"
-  },
-  {
-   "id": "pro-012",
-   "categoria": "profundizar",
-   "subcategoria": "miedos",
-   "nivel": 2,
-   "texto": "¿Qué te preocupa en silencio y casi nunca mencionas?"
-  },
-  {
-   "id": "pro-013",
-   "categoria": "profundizar",
-   "subcategoria": "autoconocimiento",
-   "nivel": 3,
-   "texto": "¿En qué momento de tu vida te sentiste más perdido/a y cómo saliste de ahí?"
-  },
-  {
-   "id": "pro-014",
-   "categoria": "profundizar",
-   "subcategoria": "vulnerabilidad",
-   "nivel": 2,
-   "texto": "¿Qué te hace sentir verdaderamente seguro/a con otra persona?"
-  },
-  {
-   "id": "pro-015",
-   "categoria": "profundizar",
-   "subcategoria": "emociones",
-   "nivel": 1,
-   "texto": "¿Qué te hace reír incluso en tus peores días?"
+   "texto": "¿Qué es lo que más necesitas escuchar de mí y casi nunca pides?",
+   "subpreguntas": [
+    "¿Por qué te cuesta pedirlo?",
+    "¿En qué momentos lo necesitas más?",
+    "¿Cómo te gustaría que te lo dijera?"
+   ]
   },
   {
    "id": "rel-001",
    "categoria": "relacion",
    "subcategoria": "recuerdos",
    "nivel": 1,
-   "texto": "¿Qué fue lo primero que pensaste de mí cuando nos conocimos?"
+   "texto": "Vuelve al día en que nos conocimos: ¿qué recuerdas que yo probablemente no recuerde?",
+   "subpreguntas": [
+    "¿Qué pensaste de mí en ese momento?",
+    "¿Qué te dio curiosidad?",
+    "¿Cuándo supiste que querías volver a verme?"
+   ]
   },
   {
    "id": "rel-002",
    "categoria": "relacion",
    "subcategoria": "recuerdos",
-   "nivel": 1,
-   "texto": "¿En qué momento supiste que querías estar conmigo?"
+   "nivel": 2,
+   "texto": "Si tuvieras que elegir el día exacto en que te enamoraste de mí, ¿cuál sería?",
+   "subpreguntas": [
+    "¿Qué estábamos haciendo?",
+    "¿Qué hice o dije?",
+    "¿Te diste cuenta en ese momento o después?"
+   ]
   },
   {
    "id": "rel-003",
    "categoria": "relacion",
-   "subcategoria": "recuerdos",
-   "nivel": 1,
-   "texto": "¿Cuál es tu recuerdo favorito de nosotros hasta ahora?"
+   "subcategoria": "comunicacion",
+   "nivel": 2,
+   "texto": "¿Cómo te gustaría que habláramos cuando algo del otro nos molesta?",
+   "subpreguntas": [
+    "¿Prefieres hablarlo enseguida o con un poco de tiempo?",
+    "¿Qué tono o palabras te cierran?",
+    "¿Qué frase te ayudaría a sentirte escuchado/a?"
+   ]
   },
   {
    "id": "rel-004",
    "categoria": "relacion",
-   "subcategoria": "comunicacion",
-   "nivel": 2,
-   "texto": "¿Hay algo que te gustaría que yo hiciera más seguido?"
+   "subcategoria": "conflictos",
+   "nivel": 3,
+   "texto": "Piensa en nuestra discusión más difícil: ¿qué estabas sintiendo realmente debajo del enojo?",
+   "subpreguntas": [
+    "¿Qué necesitabas en ese momento y no supiste pedir?",
+    "¿Qué entendiste después?",
+    "¿Qué harías diferente hoy?"
+   ]
   },
   {
    "id": "rel-005",
    "categoria": "relacion",
-   "subcategoria": "comunicacion",
+   "subcategoria": "necesidades",
    "nivel": 2,
-   "texto": "¿Cómo prefieres que te diga cuando algo tuyo me molestó?"
+   "texto": "¿Qué hago, sin darme cuenta, que te hace sentir profundamente querido/a?",
+   "subpreguntas": [
+    "¿Cuándo fue la última vez que lo sentiste?",
+    "¿Hay algo que antes hacía y extrañas?",
+    "¿Qué te gustaría que hiciera más seguido?"
+   ]
   },
   {
    "id": "rel-006",
    "categoria": "relacion",
-   "subcategoria": "conflictos",
-   "nivel": 2,
-   "texto": "¿Qué discusión nuestra sientes que nos enseñó algo importante?"
+   "subcategoria": "necesidades",
+   "nivel": 3,
+   "texto": "¿En qué momentos te has sentido solo/a aun estando conmigo?",
+   "subpreguntas": [
+    "¿Qué estaba pasando?",
+    "¿Qué te hubiera gustado que hiciera?",
+    "¿Cómo podemos darnos cuenta antes la próxima vez?"
+   ]
   },
   {
    "id": "rel-007",
    "categoria": "relacion",
-   "subcategoria": "conflictos",
-   "nivel": 3,
-   "texto": "¿Hay algo mío que te haya dolido y que nunca me dijiste del todo?"
-  },
-  {
-   "id": "rel-008",
-   "categoria": "relacion",
-   "subcategoria": "necesidades",
-   "nivel": 2,
-   "texto": "¿Cómo prefieres recibir amor: palabras, tiempo juntos, detalles, contacto físico o ayuda?"
-  },
-  {
-   "id": "rel-009",
-   "categoria": "relacion",
-   "subcategoria": "necesidades",
-   "nivel": 2,
-   "texto": "¿En qué momentos te sientes más cerca de mí?"
-  },
-  {
-   "id": "rel-010",
-   "categoria": "relacion",
-   "subcategoria": "necesidades",
-   "nivel": 3,
-   "texto": "¿Alguna vez te has sentido solo/a estando conmigo? ¿Cuándo?"
-  },
-  {
-   "id": "rel-011",
-   "categoria": "relacion",
-   "subcategoria": "comunicacion",
-   "nivel": 2,
-   "texto": "¿Qué tema te cuesta tocar conmigo y por qué?"
-  },
-  {
-   "id": "rel-012",
-   "categoria": "relacion",
-   "subcategoria": "conflictos",
-   "nivel": 2,
-   "texto": "Cuando discutimos, ¿qué necesitas de mí para sentirte escuchado/a?"
-  },
-  {
-   "id": "rel-013",
-   "categoria": "relacion",
-   "subcategoria": "recuerdos",
-   "nivel": 1,
-   "texto": "¿Qué detalle mío te enamoró sin que yo me diera cuenta?"
-  },
-  {
-   "id": "rel-014",
-   "categoria": "relacion",
-   "subcategoria": "necesidades",
-   "nivel": 2,
-   "texto": "¿Qué cosa pequeña que hago te hace sentir querido/a?"
-  },
-  {
-   "id": "rel-015",
-   "categoria": "relacion",
    "subcategoria": "comunicacion",
    "nivel": 3,
-   "texto": "¿Qué miedo tienes sobre nuestra relación que todavía no hemos hablado?"
+   "texto": "¿Qué conversación hemos estado postergando y sientes que ya es momento de tener?",
+   "subpreguntas": [
+    "¿Por qué crees que la hemos evitado?",
+    "¿Qué te da miedo de tenerla?",
+    "¿Cómo te gustaría que la empezáramos?"
+   ]
   },
   {
    "id": "fut-001",
    "categoria": "futuro",
-   "subcategoria": "metas",
-   "nivel": 1,
-   "texto": "¿Dónde te imaginas viviendo dentro de cinco años?"
+   "subcategoria": "rutina",
+   "nivel": 2,
+   "texto": "¿Cómo sería una mañana normal de nosotros viviendo juntos?",
+   "subpreguntas": [
+    "¿Quién se levantaría primero?",
+    "¿Cómo sería ese momento antes de empezar el día?",
+    "¿Desayunaríamos juntos?",
+    "¿Cómo nos despediríamos al salir?"
+   ]
   },
   {
    "id": "fut-002",
    "categoria": "futuro",
-   "subcategoria": "metas",
-   "nivel": 2,
-   "texto": "¿Qué sueño personal te gustaría que te ayudara a cumplir?"
+   "subcategoria": "rutina",
+   "nivel": 3,
+   "texto": "Si pudiéramos diseñar nuestra vida cotidiana ideal, sin limitaciones económicas ni laborales, ¿cómo sería un día cualquiera?",
+   "contexto": "No unas vacaciones ni una fecha especial, sino un martes normal.",
+   "subpreguntas": [
+    "¿Qué haríamos?",
+    "¿Dónde estaríamos?",
+    "¿Cuánto tiempo pasaríamos juntos y cuánto cada uno por su lado?"
+   ]
   },
   {
    "id": "fut-003",
    "categoria": "futuro",
-   "subcategoria": "familia",
+   "subcategoria": "rutina",
    "nivel": 2,
-   "texto": "¿Quieres tener hijos? ¿Cómo te imaginas criándolos?"
+   "texto": "¿Cómo te imaginas nuestras noches entre semana cuando vivamos juntos?",
+   "subpreguntas": [
+    "¿Cocinaríamos juntos o por turnos?",
+    "¿Qué haríamos después de cenar?",
+    "¿Cómo sería nuestro ritual antes de dormir?"
+   ]
   },
   {
    "id": "fut-004",
    "categoria": "futuro",
-   "subcategoria": "familia",
+   "subcategoria": "hogar",
    "nivel": 2,
-   "texto": "¿Qué tradiciones de tu familia te gustaría mantener y cuáles no?"
+   "texto": "Describe nuestra casa ideal como si ya estuvieras caminando por ella.",
+   "subpreguntas": [
+    "¿Qué es lo primero que ves al entrar?",
+    "¿Cuál sería tu rincón favorito?",
+    "¿Qué espacio sería solo tuyo y cuál solo mío?"
+   ]
   },
   {
    "id": "fut-005",
    "categoria": "futuro",
-   "subcategoria": "hogar",
-   "nivel": 1,
-   "texto": "¿Cómo sería para ti la casa ideal para los dos?"
+   "subcategoria": "familia",
+   "nivel": 3,
+   "texto": "¿Cómo te imaginas nuestra familia dentro de diez años?",
+   "subpreguntas": [
+    "¿Hay hijos, mascotas o ambos?",
+    "¿Cómo sería un domingo en familia?",
+    "¿Qué valores te gustaría que se respiraran en casa?"
+   ]
   },
   {
    "id": "fut-006",
    "categoria": "futuro",
-   "subcategoria": "hogar",
-   "nivel": 2,
-   "texto": "¿Cómo te gustaría que nos repartiéramos las tareas del hogar?"
+   "subcategoria": "finanzas",
+   "nivel": 3,
+   "texto": "¿Qué significa para ti la tranquilidad económica y cómo te gustaría que la construyéramos juntos?",
+   "subpreguntas": [
+    "¿Qué aprendiste del dinero en tu casa?",
+    "¿Cuentas compartidas, separadas o una mezcla?",
+    "¿En qué gasto nunca sentirías que desperdiciamos el dinero?"
+   ]
   },
   {
    "id": "fut-007",
    "categoria": "futuro",
-   "subcategoria": "finanzas",
+   "subcategoria": "metas",
    "nivel": 2,
-   "texto": "¿Qué significa para ti la estabilidad económica?"
+   "texto": "¿Qué sueño personal quieres cumplir y cómo te gustaría que yo formara parte de él?",
+   "subpreguntas": [
+    "¿Desde cuándo lo tienes?",
+    "¿Qué te ha detenido hasta ahora?",
+    "¿Qué podría hacer yo para ayudarte a dar el primer paso?"
+   ]
   },
   {
    "id": "fut-008",
    "categoria": "futuro",
-   "subcategoria": "finanzas",
-   "nivel": 2,
-   "texto": "¿Cómo te gustaría que manejáramos el dinero como pareja?"
-  },
-  {
-   "id": "fut-009",
-   "categoria": "futuro",
-   "subcategoria": "metas",
-   "nivel": 2,
-   "texto": "¿Qué te gustaría que hubiéramos logrado juntos al cumplir diez años de relación?"
-  },
-  {
-   "id": "fut-010",
-   "categoria": "futuro",
-   "subcategoria": "metas",
-   "nivel": 1,
-   "texto": "¿Qué viaje sueñas hacer conmigo algún día?"
-  },
-  {
-   "id": "fut-011",
-   "categoria": "futuro",
-   "subcategoria": "familia",
-   "nivel": 3,
-   "texto": "¿Cómo te gustaría que cuidáramos de nuestros padres cuando envejezcan?"
-  },
-  {
-   "id": "fut-012",
-   "categoria": "futuro",
    "subcategoria": "metas",
    "nivel": 3,
-   "texto": "¿Qué estarías dispuesto/a a sacrificar por nuestro futuro y qué no?"
-  },
-  {
-   "id": "fut-013",
-   "categoria": "futuro",
-   "subcategoria": "hogar",
-   "nivel": 1,
-   "texto": "¿Te imaginas teniendo mascotas conmigo? ¿Cuáles?"
-  },
-  {
-   "id": "fut-014",
-   "categoria": "futuro",
-   "subcategoria": "finanzas",
-   "nivel": 3,
-   "texto": "¿Qué miedo tienes respecto al dinero o al trabajo en el futuro?"
-  },
-  {
-   "id": "fut-015",
-   "categoria": "futuro",
-   "subcategoria": "metas",
-   "nivel": 2,
-   "texto": "¿Cómo te imaginas nuestra vida cuando seamos ancianos?"
+   "texto": "Imagina que somos ancianos y miramos atrás: ¿qué te gustaría que hubiéramos vivido juntos?",
+   "subpreguntas": [
+    "¿Qué lugares conocimos?",
+    "¿Qué superamos?",
+    "¿De qué te sentirías más orgulloso/a de nosotros?"
+   ]
   },
   {
    "id": "int-001",
    "categoria": "intimidad",
    "subcategoria": "conexion",
-   "nivel": 1,
-   "texto": "¿Qué te hace sentir más deseado/a por mí?"
+   "nivel": 2,
+   "texto": "¿Cómo sería para ti una noche íntima perfecta, de principio a fin?",
+   "subpreguntas": [
+    "¿Cómo empezaría desde la tarde?",
+    "¿Qué ambiente imaginas: luz, música, lugar?",
+    "¿Qué pasaría después, al quedarnos abrazados?"
+   ]
   },
   {
    "id": "int-002",
    "categoria": "intimidad",
-   "subcategoria": "conexion",
+   "subcategoria": "deseos",
    "nivel": 2,
-   "texto": "¿Qué gesto mío fuera de la cama te enciende sin que yo lo sepa?"
+   "texto": "¿Qué te hace sentir más deseado/a por mí, dentro y fuera de la intimidad?",
+   "subpreguntas": [
+    "¿Qué gesto mío te enciende sin que yo lo sepa?",
+    "¿Qué palabras te gustaría escuchar más?",
+    "¿Cuándo te has sentido más deseado/a?"
+   ]
   },
   {
    "id": "int-003",
    "categoria": "intimidad",
-   "subcategoria": "deseos",
-   "nivel": 2,
-   "texto": "¿Hay alguna fantasía que te gustaría contarme, aunque sea solo para hablarla?"
+   "subcategoria": "limites",
+   "nivel": 3,
+   "texto": "¿Cómo podemos decirnos que no tenemos ganas sin que el otro lo sienta como rechazo?",
+   "subpreguntas": [
+    "¿Qué te pasa por dentro cuando te digo que no?",
+    "¿Qué palabras o gestos lo harían más amable?",
+    "¿Cómo podríamos seguir conectados aunque no haya sexo?"
+   ]
   },
   {
    "id": "int-004",
    "categoria": "intimidad",
-   "subcategoria": "limites",
-   "nivel": 2,
-   "texto": "¿Hay algo en la intimidad que te incomode y prefieras que evitemos?"
+   "subcategoria": "exploracion",
+   "nivel": 3,
+   "texto": "¿Hay algo nuevo que te dé curiosidad explorar conmigo?",
+   "subpreguntas": [
+    "¿Desde cuándo lo piensas?",
+    "¿Qué te ha frenado para contármelo?",
+    "¿Cómo te gustaría que lo intentáramos, si los dos queremos?"
+   ]
   },
   {
    "id": "int-005",
    "categoria": "intimidad",
-   "subcategoria": "conexion",
-   "nivel": 2,
-   "texto": "¿Qué momento íntimo nuestro recuerdas con más cariño?"
+   "subcategoria": "limites",
+   "nivel": 3,
+   "texto": "¿Hay algo en nuestra intimidad que te incomode o que preferirías cambiar?",
+   "subpreguntas": [
+    "¿Cuándo lo notaste por primera vez?",
+    "¿Cómo te gustaría que lo ajustáramos?",
+    "¿Qué te haría sentir más cómodo/a para decírmelo en el momento?"
+   ]
   },
   {
    "id": "int-006",
    "categoria": "intimidad",
-   "subcategoria": "deseos",
-   "nivel": 2,
-   "texto": "¿Qué te gustaría que hiciéramos más seguido en la intimidad?"
+   "subcategoria": "conexion",
+   "nivel": 3,
+   "texto": "¿Cómo influyen tu estado de ánimo, el estrés o el cansancio en tu deseo?",
+   "subpreguntas": [
+    "¿Qué te desconecta más rápido?",
+    "¿Qué te ayuda a volver a conectar?",
+    "¿Cómo puedo acompañarte en esos días?"
+   ]
   },
   {
    "id": "int-007",
    "categoria": "intimidad",
-   "subcategoria": "limites",
-   "nivel": 2,
-   "texto": "¿Cómo prefieres que te diga que no tengo ganas, sin que lo sientas como rechazo?"
-  },
-  {
-   "id": "int-008",
-   "categoria": "intimidad",
-   "subcategoria": "exploracion",
-   "nivel": 3,
-   "texto": "¿Hay algo nuevo que te dé curiosidad probar conmigo?"
-  },
-  {
-   "id": "int-009",
-   "categoria": "intimidad",
-   "subcategoria": "conexion",
-   "nivel": 1,
-   "texto": "¿En qué parte del cuerpo te encanta que te acaricie?"
-  },
-  {
-   "id": "int-010",
-   "categoria": "intimidad",
-   "subcategoria": "limites",
-   "nivel": 3,
-   "texto": "¿Te sientes cómodo/a pidiéndome lo que quieres en la cama? ¿Qué te lo haría más fácil?"
-  },
-  {
-   "id": "int-011",
-   "categoria": "intimidad",
    "subcategoria": "deseos",
    "nivel": 2,
-   "texto": "¿Qué ambiente te pone más en sintonía: luz, música, lugar u hora del día?"
-  },
-  {
-   "id": "int-012",
-   "categoria": "intimidad",
-   "subcategoria": "conexion",
-   "nivel": 3,
-   "texto": "¿Cómo influye tu estado emocional en tu deseo?"
-  },
-  {
-   "id": "int-013",
-   "categoria": "intimidad",
-   "subcategoria": "exploracion",
-   "nivel": 2,
-   "texto": "¿Qué te gustaría que hiciera más lento? ¿Y qué más intenso?"
-  },
-  {
-   "id": "int-014",
-   "categoria": "intimidad",
-   "subcategoria": "deseos",
-   "nivel": 1,
-   "texto": "¿Qué es lo que te parece más sexy de mí?"
-  },
-  {
-   "id": "int-015",
-   "categoria": "intimidad",
-   "subcategoria": "exploracion",
-   "nivel": 3,
-   "texto": "¿Hay algo que te dé vergüenza pedirme? Podemos hablarlo sin juicio."
-  },
-  {
-   "id": "int-016",
-   "categoria": "intimidad",
-   "subcategoria": "conexion",
-   "nivel": 2,
-   "texto": "¿Qué es para ti la intimidad más allá del sexo?"
+   "texto": "¿Qué momento íntimo nuestro recuerdas con más intensidad y por qué?",
+   "subpreguntas": [
+    "¿Qué lo hizo especial?",
+    "¿Qué sentiste emocionalmente, no solo físicamente?",
+    "¿Qué de ese momento te gustaría repetir?"
+   ]
   },
   {
    "id": "val-001",
    "categoria": "valores",
    "subcategoria": "vision",
    "nivel": 2,
-   "texto": "¿Qué significa para ti tener una vida exitosa?"
+   "texto": "¿Qué significa para ti una vida bien vivida?",
+   "subpreguntas": [
+    "¿Conoces a alguien que la esté viviendo así?",
+    "¿Qué tan cerca estás hoy de ella?",
+    "¿Qué papel juega nuestra relación en esa vida?"
+   ]
   },
   {
    "id": "val-002",
    "categoria": "valores",
-   "subcategoria": "espiritualidad",
-   "nivel": 2,
-   "texto": "¿Crees en algo más grande que nosotros? ¿Cómo influye en tu vida?"
+   "subcategoria": "etica",
+   "nivel": 3,
+   "texto": "¿Qué valor nunca negociarías, ni siquiera por amor?",
+   "subpreguntas": [
+    "¿Por qué es tan importante para ti?",
+    "¿Alguna vez lo pusiste a prueba?",
+    "¿Qué pasaría si sintieras que yo lo pongo en riesgo?"
+   ]
   },
   {
    "id": "val-003",
    "categoria": "valores",
-   "subcategoria": "etica",
-   "nivel": 2,
-   "texto": "¿Qué valor nunca negociarías, ni siquiera por amor?"
+   "subcategoria": "espiritualidad",
+   "nivel": 3,
+   "texto": "¿Qué piensas de la muerte y qué te gustaría dejar en el mundo?",
+   "subpreguntas": [
+    "¿Te da miedo, paz o curiosidad?",
+    "¿Cómo te gustaría ser recordado/a?",
+    "¿Cómo cambia esto la forma en que quieres vivir conmigo?"
+   ]
   },
   {
    "id": "val-004",
    "categoria": "valores",
    "subcategoria": "vision",
    "nivel": 2,
-   "texto": "¿Qué significa para ti la lealtad en una pareja?"
+   "texto": "¿Qué significa para ti la lealtad en una pareja, más allá de la fidelidad?",
+   "subpreguntas": [
+    "¿Cómo se ve en el día a día?",
+    "¿Qué sería para ti una pequeña deslealtad?",
+    "¿Cuándo te has sentido más respaldado/a por mí?"
+   ]
   },
   {
    "id": "val-005",
    "categoria": "valores",
-   "subcategoria": "etica",
-   "nivel": 3,
-   "texto": "¿Qué sería imperdonable para ti?"
-  },
-  {
-   "id": "val-006",
-   "categoria": "valores",
-   "subcategoria": "vision",
-   "nivel": 1,
-   "texto": "¿Qué te gustaría que dijeran de ti las personas que te quieren?"
-  },
-  {
-   "id": "val-007",
-   "categoria": "valores",
    "subcategoria": "sociedad",
    "nivel": 2,
-   "texto": "¿Qué causa te mueve tanto como para dedicarle tu tiempo?"
-  },
-  {
-   "id": "val-008",
-   "categoria": "valores",
-   "subcategoria": "espiritualidad",
-   "nivel": 3,
-   "texto": "¿Qué piensas sobre la muerte y qué te gustaría dejar como legado?"
-  },
-  {
-   "id": "val-009",
-   "categoria": "valores",
-   "subcategoria": "vision",
-   "nivel": 2,
-   "texto": "¿Cómo equilibras lo que quieres tú con lo que esperan los demás de ti?"
-  },
-  {
-   "id": "val-010",
-   "categoria": "valores",
-   "subcategoria": "etica",
-   "nivel": 2,
-   "texto": "¿Cuándo fue la última vez que cambiaste de opinión sobre algo importante?"
-  },
-  {
-   "id": "val-011",
-   "categoria": "valores",
-   "subcategoria": "vision",
-   "nivel": 2,
-   "texto": "¿Qué papel juega la amistad en tu vida y cómo encaja con nuestra relación?"
-  },
-  {
-   "id": "val-012",
-   "categoria": "valores",
-   "subcategoria": "sociedad",
-   "nivel": 1,
-   "texto": "¿Cómo te gustaría que fuera nuestra relación con nuestros amigos y familias?"
+   "texto": "¿Cómo te gustaría que fuera nuestra relación con nuestras familias y amigos?",
+   "subpreguntas": [
+    "¿Cuánto espacio deberían ocupar en nuestra vida?",
+    "¿Qué límites te parecen necesarios?",
+    "¿Qué amistades te gustaría que cultiváramos juntos?"
+   ]
   },
   {
    "id": "hip-001",
    "categoria": "hipoteticas",
-   "subcategoria": "imaginacion",
-   "nivel": 1,
-   "texto": "Si pudiéramos vivir en cualquier país durante un año, ¿cuál elegirías y por qué?"
+   "subcategoria": "dilemas",
+   "nivel": 3,
+   "texto": "Si supiéramos que nos queda un solo año juntos, ¿cómo cambiaría nuestra vida cotidiana?",
+   "subpreguntas": [
+    "¿Qué dejarías de hacer de inmediato?",
+    "¿Qué conversaciones tendríamos?",
+    "¿Por qué no lo estamos haciendo ya?"
+   ]
   },
   {
    "id": "hip-002",
    "categoria": "hipoteticas",
-   "subcategoria": "dilemas",
-   "nivel": 2,
-   "texto": "Si supieras que nos queda un solo año juntos, ¿qué cambiarías de nuestra rutina?"
+   "subcategoria": "imaginacion",
+   "nivel": 1,
+   "texto": "Si pudiéramos vivir un año en cualquier lugar del mundo, ¿cómo serían nuestros días allí?",
+   "subpreguntas": [
+    "¿Dónde sería?",
+    "¿A qué nos dedicaríamos?",
+    "¿Qué crees que descubriríamos de nosotros?"
+   ]
   },
   {
    "id": "hip-003",
    "categoria": "hipoteticas",
-   "subcategoria": "imaginacion",
-   "nivel": 1,
-   "texto": "Si ganáramos la lotería mañana, ¿qué sería lo primero que harías?"
+   "subcategoria": "dilemas",
+   "nivel": 2,
+   "texto": "Si te ofrecieran el trabajo de tus sueños en otro país, ¿cómo lo decidiríamos juntos?",
+   "subpreguntas": [
+    "¿Qué pesaría más para ti?",
+    "¿Qué estarías dispuesto/a a ceder?",
+    "¿Qué necesitarías escuchar de mí?"
+   ]
   },
   {
    "id": "hip-004",
    "categoria": "hipoteticas",
-   "subcategoria": "dilemas",
+   "subcategoria": "imaginacion",
    "nivel": 2,
-   "texto": "Si pudieras borrar un recuerdo de tu vida, ¿lo harías? ¿Cuál?"
+   "texto": "Si pudieras haberme conocido en otra etapa de mi vida, ¿cuál elegirías?",
+   "subpreguntas": [
+    "¿Por qué esa etapa?",
+    "¿Qué te gustaría haber visto de mí?",
+    "¿Crees que nos habríamos enamorado igual?"
+   ]
   },
   {
    "id": "hip-005",
    "categoria": "hipoteticas",
    "subcategoria": "diversion",
    "nivel": 1,
-   "texto": "Si nuestra historia fuera una película, ¿de qué género sería y quién nos interpretaría?"
-  },
-  {
-   "id": "hip-006",
-   "categoria": "hipoteticas",
-   "subcategoria": "dilemas",
-   "nivel": 3,
-   "texto": "Si mañana te dijera que quiero cambiar de vida por completo, ¿qué harías?"
-  },
-  {
-   "id": "hip-007",
-   "categoria": "hipoteticas",
-   "subcategoria": "imaginacion",
-   "nivel": 1,
-   "texto": "Si pudieras tener un superpoder solo para usarlo conmigo, ¿cuál sería?"
-  },
-  {
-   "id": "hip-008",
-   "categoria": "hipoteticas",
-   "subcategoria": "diversion",
-   "nivel": 1,
-   "texto": "Si fuéramos a un reality de parejas, ¿en qué prueba ganaríamos y en cuál perderíamos?"
-  },
-  {
-   "id": "hip-009",
-   "categoria": "hipoteticas",
-   "subcategoria": "imaginacion",
-   "nivel": 2,
-   "texto": "Si pudieras haberme conocido a otra edad, ¿cuál elegirías y por qué?"
-  },
-  {
-   "id": "hip-010",
-   "categoria": "hipoteticas",
-   "subcategoria": "dilemas",
-   "nivel": 2,
-   "texto": "Si te ofrecieran el trabajo de tus sueños en otro país, ¿cómo lo decidiríamos?"
-  },
-  {
-   "id": "hip-011",
-   "categoria": "hipoteticas",
-   "subcategoria": "diversion",
-   "nivel": 1,
-   "texto": "Si escribieras un libro sobre nosotros, ¿cómo se llamaría?"
-  },
-  {
-   "id": "hip-012",
-   "categoria": "hipoteticas",
-   "subcategoria": "imaginacion",
-   "nivel": 2,
-   "texto": "Si solo pudiéramos hablar una hora al día, ¿de qué hablaríamos?"
+   "texto": "Si nuestra historia fuera una película, ¿cómo serían sus escenas principales?",
+   "subpreguntas": [
+    "¿De qué género sería?",
+    "¿Cuál sería la escena más memorable hasta ahora?",
+    "¿Cómo imaginas la escena final?"
+   ]
   },
   {
    "id": "gra-001",
    "categoria": "gratitud",
-   "subcategoria": "aprecio",
-   "nivel": 1,
-   "texto": "¿Qué hice esta semana que te hizo sentir bien?"
+   "subcategoria": "admiracion",
+   "nivel": 2,
+   "texto": "¿Qué admiras de mí que quizás yo no reconozco en mí mismo/a?",
+   "subpreguntas": [
+    "¿Cuándo lo notaste por primera vez?",
+    "¿Cómo te inspira?",
+    "¿Por qué crees que me cuesta verlo?"
+   ]
   },
   {
    "id": "gra-002",
    "categoria": "gratitud",
-   "subcategoria": "admiracion",
-   "nivel": 1,
-   "texto": "¿Qué es lo que más admiras de mí?"
+   "subcategoria": "crecimiento",
+   "nivel": 3,
+   "texto": "¿En qué hemos crecido cada uno desde que estamos juntos?",
+   "subpreguntas": [
+    "¿Qué cambió en ti gracias a nosotros?",
+    "¿Qué cambio has visto en mí?",
+    "¿En qué nos falta crecer todavía?"
+   ]
   },
   {
    "id": "gra-003",
    "categoria": "gratitud",
-   "subcategoria": "crecimiento",
+   "subcategoria": "aprecio",
    "nivel": 2,
-   "texto": "¿En qué crees que he crecido desde que estamos juntos?"
+   "texto": "¿Qué momento difícil sientes que superamos como equipo?",
+   "subpreguntas": [
+    "¿Qué hizo el otro que marcó la diferencia?",
+    "¿Qué aprendimos?",
+    "¿Cómo te sentiste al salir de ahí?"
+   ]
   },
   {
    "id": "gra-004",
    "categoria": "gratitud",
    "subcategoria": "aprecio",
-   "nivel": 2,
-   "texto": "¿Qué agradeces hoy de nuestra relación que antes no valorabas tanto?"
+   "nivel": 1,
+   "texto": "¿Qué pequeño momento de nuestra rutina agradeces aunque nunca lo digas?",
+   "subpreguntas": [
+    "¿Por qué significa tanto para ti?",
+    "¿Desde cuándo lo valoras?",
+    "¿Qué otro momento así te gustaría que creáramos?"
+   ]
   },
   {
    "id": "gra-005",
    "categoria": "gratitud",
    "subcategoria": "crecimiento",
-   "nivel": 2,
-   "texto": "¿Qué has aprendido de ti mismo/a gracias a nuestra relación?"
-  },
-  {
-   "id": "gra-006",
-   "categoria": "gratitud",
-   "subcategoria": "admiracion",
-   "nivel": 2,
-   "texto": "¿En qué momento te sentiste más orgulloso/a de mí?"
-  },
-  {
-   "id": "gra-007",
-   "categoria": "gratitud",
-   "subcategoria": "aprecio",
-   "nivel": 1,
-   "texto": "Dime tres cosas que te encantan de mí, sin pensarlo mucho."
-  },
-  {
-   "id": "gra-008",
-   "categoria": "gratitud",
-   "subcategoria": "crecimiento",
    "nivel": 3,
-   "texto": "¿Qué te gustaría que aprendiéramos a hacer mejor como pareja?"
-  },
-  {
-   "id": "gra-009",
-   "categoria": "gratitud",
-   "subcategoria": "aprecio",
-   "nivel": 2,
-   "texto": "¿Qué momento difícil sientes que superamos como equipo?"
-  },
-  {
-   "id": "gra-010",
-   "categoria": "gratitud",
-   "subcategoria": "admiracion",
-   "nivel": 1,
-   "texto": "¿Qué cualidad mía te gustaría contagiarle al mundo?"
+   "texto": "¿Qué te gustaría que aprendiéramos a hacer mejor como pareja este año?",
+   "subpreguntas": [
+    "¿Por qué eso y no otra cosa?",
+    "¿Qué pequeño paso podríamos dar esta semana?",
+    "¿Cómo sabríamos que lo estamos logrando?"
+   ]
   }
  ]
 };

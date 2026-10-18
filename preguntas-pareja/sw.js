@@ -1,5 +1,5 @@
 // Service worker: permite usar la app sin conexión una vez abierta.
-const CACHE = "entre-nosotros-v1";
+const CACHE = "entre-nosotros-v2";
 const FILES = ["./", "index.html", "data/preguntas.js", "manifest.webmanifest", "icon.svg"];
 
 self.addEventListener("install", e => {
